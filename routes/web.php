@@ -1,0 +1,96 @@
+<?php
+
+use App\Http\Controllers\Admin\MaintenanceController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Frontend\Auth\LoginController;
+use App\Http\Controllers\Backend\DashboardController;
+use App\Http\Controllers\Backend\SpecializationController;
+use App\Http\Controllers\Backend\StrandController;
+use App\Http\Controllers\Backend\SubjectController;
+use Illuminate\Support\Facades\Route;
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider and all of them will
+| be assigned to the "web" middleware group. Make something great!
+|
+*/
+
+
+Route::controller(LoginController::class)->group(function () {
+    Route::get('/', 'index')->name('auth.index');
+    Route::post('/login', 'login')->name('auth.store');
+    Route::post('/logout',  'logout')->name('auth.delete')->middleware('auth');
+});
+Route::middleware(['auth','alert'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+
+    Route::prefix('academics')->name('academic.')->group(function () {
+        Route::prefix('strand')->name('strand.')->controller(StrandController::class)->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('/create', 'create')->name('create');
+            Route::post('/store', 'store')->name('store');
+            Route::get('/show/{id}', 'show')->name('show');
+            Route::get('/edit/{id}', 'edit')->name('edit');
+            Route::post('/update/{id}', 'update')->name('update');
+            Route::post('/delete/{id}', 'delete')->name('delete');
+        });
+        Route::prefix('specialization')->name('specialization.')->controller(SpecializationController::class)->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('/create', 'create')->name('create');
+            Route::post('/store', 'store')->name('store');
+            Route::get('/show/{id}', 'show')->name('show');
+            Route::get('/edit/{id}', 'edit')->name('edit');
+            Route::post('/update/{id}', 'update')->name('update');
+            Route::post('/delete/{id}', 'delete')->name('delete');
+        });
+        Route::prefix('subject')->name('subject.')->controller(SubjectController::class)->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('/create', 'create')->name('create');
+            Route::post('/store', 'store')->name('store');
+            Route::get('/show/{id}', 'show')->name('show');
+            Route::get('/edit/{id}', 'edit')->name('edit');
+            Route::post('/update/{id}', 'update')->name('update');
+            Route::post('/delete/{id}', 'delete')->name('delete');
+        });
+    });
+
+
+    /* Admin */
+    Route::middleware(['isAdmin'])->group(function () {
+        Route::prefix('maintenance')->name('maintenance.')->controller(MaintenanceController::class)->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('/create', 'create')->name('create');
+            Route::post('/store', 'store')->name('store');
+            Route::get('/show/{id}', 'show')->name('show');
+            Route::get('/edit/{id}', 'edit')->name('edit');
+            Route::post('/update/{id}', 'update')->name('update');
+            Route::post('/delete/{id}', 'delete')->name('delete');
+        });
+        Route::prefix('user')->name('user.')->group(function () {
+            Route::controller(UserController::class)->group(function () {
+                Route::get('/', 'index')->name('index');
+                Route::get('/create', 'create')->name('create');
+                Route::post('/store', 'store')->name('store');
+                Route::get('/show/{id}', 'show')->name('show');
+                Route::get('/edit/{id}', 'edit')->name('edit');
+                Route::post('/update/{id}', 'update')->name('update');
+                Route::post('/delete/{id}', 'delete')->name('delete');
+            });
+            Route::prefix('log')->name('log.')->controller(UserController::class)->group(function () {
+                Route::get('/', 'index')->name('index');
+                Route::get('/create', 'create')->name('create');
+                Route::post('/store', 'store')->name('store');
+                Route::get('/show/{id}', 'show')->name('show');
+                Route::get('/edit/{id}', 'edit')->name('edit');
+                Route::post('/update/{id}', 'update')->name('update');
+                Route::post('/delete/{id}', 'delete')->name('delete');
+            });
+
+        });
+    });
+});
