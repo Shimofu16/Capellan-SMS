@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Http\Controllers\Controller;
+use App\Models\Strand;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class StrandController extends Controller
 {
@@ -12,7 +14,8 @@ class StrandController extends Controller
      */
     public function index()
     {
-        //
+        $strands = Strand::all();
+        return view('SMS.backend.pages.academics.strand.index', compact('strands'));
     }
 
     /**
@@ -28,7 +31,25 @@ class StrandController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $slug = Str::of($request->name)
+            ->explode(' ')
+            ->reject(function ($word) {
+                $lowercaseWord = strtolower($word);
+                return in_array($lowercaseWord, ['and', 'the']);
+            })
+            ->map(function ($word) {
+                return Str::substr($word, 0, 1);
+            })
+            ->implode('');
+            Strand::create([
+                'name' => $request->name,
+                'slug' => $slug,
+            ]);
+            return back()->with('successToast', 'Strand successfully created!');
+        } catch (\Throwable $th) {
+            return back()->with('errorAlert', $th->getMessage());
+        }
     }
 
     /**
@@ -52,7 +73,30 @@ class StrandController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        try {
+            $strand = Strand::findOrFail($id);
+            $slug = $request->slug;
+            if ($request->slug === $strand->slug) {
+                $slug = Str::of($request->name)
+                    ->explode(' ')
+                    ->reject(function ($word) {
+                        $lowercaseWord = strtolower($word);
+                        return in_array($lowercaseWord, ['and', 'the']);
+                    })
+                    ->map(function ($word) {
+                        return Str::substr($word, 0, 1);
+                    })
+                    ->implode('');
+
+            }
+            $strand->update([
+                'name' => $request->name,
+                'slug' => $slug,
+            ]);
+            return back()->with('successToast', 'Strand successfully updated!');
+        } catch (\Throwable $th) {
+            return back()->with('errorAlert', $th->getMessage());
+        }
     }
 
     /**
@@ -60,6 +104,12 @@ class StrandController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            $strand = Strand::findOrFail($id);
+            $strand->delete();
+            return back()->with('successToast', 'Strand successfully deleted!');
+        } catch (\Throwable $th) {
+            return back()->with('errorAlert', $th->getMessage());
+        }
     }
 }

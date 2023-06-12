@@ -15,23 +15,23 @@ class StrandSeeder extends Seeder
         $data = [
             [
                 'name' => 'Accountancy, Business and Management',
-                'slug' => 'abm',
+                'slug' => 'ABM',
             ],
             [
                 'name' => 'General Academic Strand',
-                'slug' => 'gas',
+                'slug' => 'GAS',
             ],
             [
                 'name' => 'Humanities and Social Sciences',
-                'slug' => 'humss',
+                'slug' => 'HUMSS',
             ],
             [
                 'name' => 'Science, Technology, Engineering, and Mathematics strand',
-                'slug' => 'stem',
+                'slug' => 'STEM',
             ],
             [
-                'name' => 'Technical-Vocational-Livelihood Strand',
-                'slug' => 'tvl',
+                'name' => 'Technical Vocational Livelihood Strand',
+                'slug' => 'TVL',
             ],
         ];
         foreach ($data as $key => $value) {

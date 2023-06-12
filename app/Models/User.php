@@ -43,9 +43,9 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function log()
+    public function logs()
     {
-        return $this->belongsTo(Log::class, 'user_id');
+        return $this->hasMany(Log::class, 'user_id');
     }
     public function role()
     {
@@ -55,5 +55,9 @@ class User extends Authenticatable
     public function isRole($role)
     {
         return $this->role->name === $role;
+    }
+    public function getLogsWithinAWeek()
+    {
+        return $this->logs()->where('created_at', '>=', now()->subDays(7))->get();
     }
 }

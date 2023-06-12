@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -12,7 +13,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $users = User::all();
+        return view('SMS.backend.pages.user.index',compact('users'));
     }
 
     /**
@@ -36,7 +38,12 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-        //
+        try {
+            $user = User::findOrFail($id);
+            return view('SMS.backend.pages.user.show',compact('user'));
+        } catch (\Throwable $th) {
+            return back()->with('errorAlert',$th->getMessage());
+        }
     }
 
     /**

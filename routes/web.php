@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\MaintenanceController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Backend\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Frontend\Auth\LoginController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\SpecializationController;
@@ -36,26 +37,26 @@ Route::middleware(['auth','alert'])->prefix('admin')->name('admin.')->group(func
             Route::post('/store', 'store')->name('store');
             Route::get('/show/{id}', 'show')->name('show');
             Route::get('/edit/{id}', 'edit')->name('edit');
-            Route::post('/update/{id}', 'update')->name('update');
-            Route::post('/delete/{id}', 'delete')->name('delete');
+            Route::put('/update/{id}', 'update')->name('update');
+            Route::delete('/destroy/{id}', 'destroy')->name('destroy');
         });
         Route::prefix('specialization')->name('specialization.')->controller(SpecializationController::class)->group(function () {
-            Route::get('/', 'index')->name('index');
+            Route::get('/{strand_id?}', 'index')->name('index');
             Route::get('/create', 'create')->name('create');
             Route::post('/store', 'store')->name('store');
             Route::get('/show/{id}', 'show')->name('show');
             Route::get('/edit/{id}', 'edit')->name('edit');
-            Route::post('/update/{id}', 'update')->name('update');
-            Route::post('/delete/{id}', 'delete')->name('delete');
+            Route::put('/update/{id}', 'update')->name('update');
+            Route::delete('/delete/{id}', 'destroy')->name('destroy');
         });
         Route::prefix('subject')->name('subject.')->controller(SubjectController::class)->group(function () {
-            Route::get('/', 'index')->name('index');
+            Route::get('/{specialization_id?}', 'index')->name('index');
             Route::get('/create', 'create')->name('create');
             Route::post('/store', 'store')->name('store');
             Route::get('/show/{id}', 'show')->name('show');
             Route::get('/edit/{id}', 'edit')->name('edit');
-            Route::post('/update/{id}', 'update')->name('update');
-            Route::post('/delete/{id}', 'delete')->name('delete');
+            Route::put('/update/{id}', 'update')->name('update');
+            Route::delete('/destroy/{id}', 'destroy')->name('destroy');
         });
     });
 
@@ -69,26 +70,17 @@ Route::middleware(['auth','alert'])->prefix('admin')->name('admin.')->group(func
             Route::get('/show/{id}', 'show')->name('show');
             Route::get('/edit/{id}', 'edit')->name('edit');
             Route::post('/update/{id}', 'update')->name('update');
-            Route::post('/delete/{id}', 'delete')->name('delete');
+            Route::delete('/destroy/{id}', 'destroy')->name('destroy');
         });
         Route::prefix('user')->name('user.')->group(function () {
-            Route::controller(UserController::class)->group(function () {
+            Route::controller(AdminUserController::class)->group(function () {
                 Route::get('/', 'index')->name('index');
                 Route::get('/create', 'create')->name('create');
                 Route::post('/store', 'store')->name('store');
                 Route::get('/show/{id}', 'show')->name('show');
                 Route::get('/edit/{id}', 'edit')->name('edit');
                 Route::post('/update/{id}', 'update')->name('update');
-                Route::post('/delete/{id}', 'delete')->name('delete');
-            });
-            Route::prefix('log')->name('log.')->controller(UserController::class)->group(function () {
-                Route::get('/', 'index')->name('index');
-                Route::get('/create', 'create')->name('create');
-                Route::post('/store', 'store')->name('store');
-                Route::get('/show/{id}', 'show')->name('show');
-                Route::get('/edit/{id}', 'edit')->name('edit');
-                Route::post('/update/{id}', 'update')->name('update');
-                Route::post('/delete/{id}', 'delete')->name('delete');
+                Route::post('/destroy/{id}', 'destroy')->name('destroy');
             });
 
         });

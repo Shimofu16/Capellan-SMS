@@ -16,16 +16,16 @@
             <li class="nav-item">
                 <a class="nav-link {{ Route::is('admin.dashboard.index') ? 'active' : '' }}"
                     href="{{ route('admin.dashboard.index') }}">
-                    <i class="fa-solid fa-house"></i>
+                    <i class="fa-solid icon-yellow fa-house"></i>
                     <span>Dashboard</span>
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link collapsed {{ Route::is('admin.academic.*') ? 'active' : '' }}" data-bs-target="#academics"
                     data-bs-toggle="collapse" href="#">
-                    <i class="fa-solid fa-book-open"></i>
+                    <i class="fa-solid icon-yellow fa-book-open"></i>
                     <span>Academics</span>
-                    <i class="bi bi-chevron-down ms-auto"></i>
+                    <i class="bi bi-chevron-down ms-auto icon-yellow"></i>
                 </a>
                 <ul id="academics" class="nav-content collapse p-2" data-bs-parent="#sidebar-nav">
                     <li class="{{ Route::is('admin.academic.strand.index') ? 'collapse-active' : '' }}">
@@ -57,32 +57,16 @@
                 <li class="nav-item">
                     <a class="nav-link {{ Route::is('admin.maintenance.index') ? 'active' : '' }}"
                         href="{{ route('admin.maintenance.index') }}">
-                        <i class="fa-solid fa-gears"></i>
-                        <span>maintenance</span>
+                        <i class="fa-solid icon-yellow fa-gears"></i>
+                        <span>Maintenance</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link collapsed {{ Route::is('admin.account.*') ? 'active' : '' }}"
-                        data-bs-target="#accounts" data-bs-toggle="collapse" href="#">
-                        <i class="fa-solid fa-user-gear"></i>
-                        <span>Manage Accounts</span>
-                        <i class="bi bi-chevron-down ms-auto"></i>
+                    <a class="nav-link {{ Route::is('admin.user.index') ? 'active' : '' }}"
+                        href="{{ route('admin.user.index') }}">
+                        <i class="fa-solid icon-yellow fa-users"></i>
+                        <span>Users</span>
                     </a>
-                    <ul id="accounts" class="nav-content collapse p-2" data-bs-parent="#sidebar-nav">
-                        <li class="{{ Route::is('admin.user.index') ? 'collapse-active' : '' }}">
-                            <a href="{{ route('admin.user.index') }}">
-                                <i class="bi bi-circle"></i>
-                                <span>Users</span>
-                            </a>
-                        </li>
-                        <li class="{{ Route::is('admin.user.log.index') ? 'collapse-active' : '' }}">
-                            <a href="{{ route('admin.user.log.index') }}">
-                                <i class="bi bi-circle"></i>
-                                <span>Users Logs</span>
-                            </a>
-                        </li>
-
-                    </ul>
                 </li>
             @endif
             <!-- End Icons Nav -->

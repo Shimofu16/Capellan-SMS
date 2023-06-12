@@ -18,13 +18,15 @@ return new class extends Migration
             $table->integer('unit');
             $table->string('prerequisite')->default('none'); // none, subject code
             $table->string('type')->default('core'); // core, elective, specialization
+            $table->unsignedBigInteger('specialization_id');
             $table->unsignedBigInteger('semester_id');
+            $table->foreign('specialization_id')->references('id')->on('specializations');
             $table->foreign('semester_id')->references('id')->on('semesters');
             $table->timestamps();
-            /* 
-            Core courses are mandatory courses you must study to meet the requirements of your program. 
-            Electives are courses you can choose, 
-            allowing you to study topics that interest you. Electives, when added to your core courses, 
+            /*
+            Core courses are mandatory courses you must study to meet the requirements of your program.
+            Electives are courses you can choose,
+            allowing you to study topics that interest you. Electives, when added to your core courses,
             make up the total number of units needed to complete your degree.
             In terms of specialization, it refers to the process of concentrating on and becoming an expert in a particular subject or skill.
             */

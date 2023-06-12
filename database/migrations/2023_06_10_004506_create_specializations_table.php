@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('specializations', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('slug')->unique();
             $table->unsignedBigInteger('strand_id');    
             $table->foreign('strand_id')->references('id')->on('strands');
             $table->timestamps();

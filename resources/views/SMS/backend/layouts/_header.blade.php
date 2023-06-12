@@ -1,4 +1,4 @@
-<header class="header custom-header z-index-1k d-flex flex-column">
+<header class="header custom-header z-index-1k d-flex flex-column mb-5">
 
     <div class="d-flex align-items-center justify-content-between" id="header">
         <div class="d-flex align-items-center justify-content-between">

@@ -45,6 +45,9 @@ $gradient-top-left: linear-gradient(225deg, #000000ff, #EAEAECff, #112E68ff, #20
 $gradient-bottom-left: linear-gradient(315deg, #000000ff, #EAEAECff, #112E68ff, #202020ff, #F2AC00ff);
 $gradient-radial: radial-gradient(#000000ff, #EAEAECff, #112E68ff, #202020ff, #F2AC00ff); */
 }
+.icon-yellow{
+    color: #f2ac00ff;
+}
 .custom-header {
     position: relative;
     top: 0;
@@ -87,8 +90,8 @@ $gradient-radial: radial-gradient(#000000ff, #EAEAECff, #112E68ff, #202020ff, #F
 
 /* Maroon Button hover effect */
 .btn-maroon:hover {
-    background-color: #b30c28 !important;
-    border-color: #b30c28;
+    background-color: rgb(230, 175, 37) !important;
+    border-color: rgb(230, 175, 37);
     color: #fff;
 }
 

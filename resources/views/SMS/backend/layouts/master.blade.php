@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>Admin @hasSection('page-title')
+    <title>{{ Str::ucfirst(Auth::user()->role->name) }} @hasSection('page-title')
             - @yield('page-title')
         @else
         @endif
@@ -22,6 +22,7 @@
         rel="stylesheet">
 
     {{-- Packages --}}
+    
     <link href="{{ asset('assets/packages/bootstrap-5.3.0-dist/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/packages/DataTables/datatables.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/packages/fontawesome-free-6.4.0-web/css/all.min.css') }}" rel="stylesheet">
