@@ -30,6 +30,7 @@ class SchoolYearSeeder extends Seeder
                 'start_date' => '2022-06-10',
                 'end_date' => '2023-06-10',
                 'semester_id' => 1,
+                'is_active' => true,
             ],
         ];
         foreach ($data as $key => $value) {

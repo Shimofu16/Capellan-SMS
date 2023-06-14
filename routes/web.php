@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\MaintenanceController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Backend\Admin\MaintenanceController as AdminMaintenanceController;
 use App\Http\Controllers\Backend\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Frontend\Auth\LoginController;
 use App\Http\Controllers\Backend\DashboardController;
@@ -63,13 +64,13 @@ Route::middleware(['auth','alert'])->prefix('admin')->name('admin.')->group(func
 
     /* Admin */
     Route::middleware(['isAdmin'])->group(function () {
-        Route::prefix('maintenance')->name('maintenance.')->controller(MaintenanceController::class)->group(function () {
+        Route::prefix('maintenance')->name('maintenance.')->controller(AdminMaintenanceController::class)->group(function () {
             Route::get('/', 'index')->name('index');
             Route::get('/create', 'create')->name('create');
             Route::post('/store', 'store')->name('store');
             Route::get('/show/{id}', 'show')->name('show');
             Route::get('/edit/{id}', 'edit')->name('edit');
-            Route::post('/update/{id}', 'update')->name('update');
+            Route::put('/update/{table}/{id}', 'update')->name('update');
             Route::delete('/destroy/{id}', 'destroy')->name('destroy');
         });
         Route::prefix('user')->name('user.')->group(function () {

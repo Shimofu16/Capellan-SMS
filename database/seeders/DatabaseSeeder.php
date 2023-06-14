@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
             StrandSeeder::class,
             SpecializationSeeder::class,
             SubjectSeeder::class,
+            BillingSeeder::class,
         ]);
     }
 }

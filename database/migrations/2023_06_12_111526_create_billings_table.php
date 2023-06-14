@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('billings', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('fee')->default(0);
             $table->timestamps();
         });
     }
