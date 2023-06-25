@@ -49,9 +49,9 @@
                             <label for="is_active" class="form-label fw-bold text-black">Current SY</label>
                             <select name="is_active" id="is_active" class="form-control">
                                 <option value="">Make SY:{{ $sy->name }} as Default</option>
-                                    <option value="true"
+                                    <option value="1"
                                         @if ($sy->is_active == true) selected @endif>Yes</option>
-                                    <option value="false"
+                                    <option value="0"
                                         @if ($sy->is_active == false) selected @endif>No</option>
                             </select>
                             @error('is_active')

@@ -56,23 +56,25 @@ class MaintenanceController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $table, string $id)
+    public function update(Request $request, string $table,  $id)
     {
         try {
+
             if ($table === 'billing') {
                 $billing = Billing::find($id);
                 $billing->fee = $request->fee;
                 $billing->save();
-                return redirect()->back()->with('success', 'Billing fee updated successfully!');
-            } elseif ($table === 'school_year') {
+                return redirect()->back()->with('successToast', 'Billing fee updated successfully!');
+            } elseif ($table === 'sy') {
+
                 $school_year = SchoolYear::find($id);
-                $school_year->name = $request->start_date . '-' . $request->end_date;
-                $school_year->start_date = $request->start_date;
-                $school_year->end_date = $request->end_date;
+                $school_year->name = date('Y', strtotime($request->start_date)) . '-' . date('Y', strtotime($request->end_date));
+                $school_year->start_date = date('Y-m-d', strtotime($request->start_date));
+                $school_year->end_date = date('Y-m-d', strtotime($request->end_date));
                 $school_year->semester_id = $request->semester_id;
                 $school_year->is_active = $request->is_active;
                 $school_year->save();
-                return redirect()->back()->with('success', 'School year updated successfully!');
+                return redirect()->back()->with('successToast', 'School year updated successfully!');
             }
         } catch (\Throwable $th) {
             return redirect()->back()->with('errorAlert', $th->getMessage());
