@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('code');
             $table->string('name');
             $table->integer('unit');
-            $table->string('prerequisite')->default('none'); // none, subject code
+            $table->string('prerequisite')->nullable(); // none, subject code
             $table->string('type')->default('core'); // core, elective, specialization
             $table->unsignedBigInteger('specialization_id');
             $table->unsignedBigInteger('semester_id');

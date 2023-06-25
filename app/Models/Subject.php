@@ -17,4 +17,8 @@ class Subject extends Model
     public function specialization () {
         return $this->belongsTo(Specialization::class, 'specialization_id');
     }
+
+    public function prerequisites () {
+        return $this->hasOne(Prerequisite::class, 'subject_id');
+    }
 }

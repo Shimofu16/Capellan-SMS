@@ -79,7 +79,13 @@
                                         <td>{{ $subject->code }}</td>
                                         <td>{{ $subject->name }}</td>
                                         <td>{{ $subject->unit }}</td>
-                                        <td>{{ $subject->prerequisite }}</td>
+                                        <td>
+                                            @if ($subject->prerequisite != null)
+                                                {{ $subject->prerequisite }}
+                                            @else
+                                                None
+                                            @endif
+                                        </td>
                                         <td>{{ $subject->type }}</td>
                                         <td>{{ $subject->semester->name }}</td>
                                         @if ($specialization_id == null)

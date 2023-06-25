@@ -17,4 +17,5 @@ class Specialization extends Model
     public function subjects(){
         return $this->hasMany(Subject::class, 'specialization_id');
     }
+    
 }

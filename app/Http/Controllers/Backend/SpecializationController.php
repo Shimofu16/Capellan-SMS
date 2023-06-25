@@ -23,7 +23,7 @@ class SpecializationController extends Controller
             $strand = null;
         }
         $strands = Strand::all();
-        return view('SMS.backend.pages.academics.specialization.index', compact('specializations','strands','strand_id','strand'));
+        return view('SMS.backend.pages.academics.specialization.index', compact('specializations', 'strands', 'strand_id', 'strand'));
     }
 
     /**
@@ -39,16 +39,16 @@ class SpecializationController extends Controller
      */
     public function store(Request $request)
     {
-            
-            try {
-                Specialization::create([
-                    'name' => $request->name,
-                    'strand_id' => $request->strand_id,
-                ]);
-                return back()->with('successToast', 'Specialization successfully created!');
-            } catch (\Throwable $th) {
-                return back()->with('errorAlert', $th->getMessage());
-            }
+
+        try {
+            Specialization::create([
+                'name' => $request->name,
+                'strand_id' => $request->strand_id,
+            ]);
+            return back()->with('successToast', 'Specialization successfully created!');
+        } catch (\Throwable $th) {
+            return back()->with('errorAlert', $th->getMessage());
+        }
     }
 
     /**
@@ -89,6 +89,12 @@ class SpecializationController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            $specialization = Specialization::find($id);
+            $specialization->delete();
+            return back()->with('successToast', 'Specialization successfully deleted!');
+        } catch (\Throwable $th) {
+            return back()->with('errorAlert', $th->getMessage());
+        }
     }
 }

@@ -14,4 +14,8 @@ class Strand extends Model
     {
         return $this->hasMany(Specialization::class, 'strand_id');
     }
+    public function students()
+    {
+        return $this->hasMany(Student::class, 'strand_id');
+    }
 }

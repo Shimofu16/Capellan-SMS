@@ -31,7 +31,8 @@
                                 </button>
                                 @include('SMS.backend.pages.academics.specialization.modal._add')
                             @else
-                                <a href="{{ route('admin.academic.specialization.index') }}" class="btn btn-outline-maroon me-1">
+                                <a href="{{ route('admin.academic.specialization.index') }}"
+                                    class="btn btn-outline-maroon me-1">
                                     <i class="ri-arrow-go-back-line"></i>
                                     Back
                                 </a>
@@ -75,18 +76,26 @@
                                             <td>{{ $specialization->strand->name }}</td>
                                         @endif
                                         <td class="text-center">
-                                            <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal"
-                                                data-bs-target="#edit{{ $specialization->id }}">
-                                                <i class="ri-pencil-line"></i>
-                                            </button>
-                                            <button class="btn btn-outline-danger btn-sm" data-bs-toggle="modal"
-                                                data-bs-target="#delete{{ $specialization->id }}">
-                                                <i class="ri-delete-bin-2-line"></i>
-                                            </button>
+                                            <div class="d-flex">
+                                                <button class="btn btn-outline-primary btn-sm me-1" type="button"
+                                                    data-bs-toggle="modal" data-bs-target="#edit{{ $specialization->id }}">
+                                                    <i class="ri-pencil-line"></i>
+                                                </button>
+                                                <form
+                                                    action="{{ route('admin.academic.specialization.destroy', ['id' => $specialization->id]) }}"
+                                                    method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+    
+                                                    <button type="submit" class="btn btn-outline-danger btn-sm"> <i
+                                                            class="ri-delete-bin-2-line"></i></button>
+                                                </form>
+
+                                            </div>
                                         </td>
+                                        @include('SMS.backend.pages.academics.specialization.modal._edit')
+
                                     </tr>
-                                    @include('SMS.backend.pages.academics.specialization.modal._edit')
-                                    @include('SMS.backend.pages.academics.specialization.modal._delete')
                                 @endforeach
                             </tbody>
 

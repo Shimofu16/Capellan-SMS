@@ -42,6 +42,14 @@ class SubjectController extends Controller
     public function store(Request $request)
     {
         try {
+            $request->validate([
+                'code' => 'required',
+                'name' => 'required',
+                'unit' => 'required',
+                'type' => 'required',
+                'semester_id' => 'required',
+                'specialization_id' => 'required',
+            ]);
             Subject::create([
                 'code' => $request->code,
                 'name' => $request->name,

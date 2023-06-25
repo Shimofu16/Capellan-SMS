@@ -51,7 +51,14 @@
 
             </li>
             <!-- End Dashboard Nav -->
-
+            <li class="nav-item">
+                <a class="nav-link {{ Route::is('admin.student.index') ? 'active' : '' }}"
+                    href="{{ route('admin.student.index') }}">
+                {{-- remix icon for students --}}
+                    <i class="fa-solid icon-yellow fa-graduation-cap"></i>
+                    <span>Students</span>
+                </a>
+            </li>
             <!-- End Charts Nav -->
             @if (Auth::user()->isRole('admin'))
                 <li class="nav-item">

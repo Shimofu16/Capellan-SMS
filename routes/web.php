@@ -8,6 +8,7 @@ use App\Http\Controllers\Frontend\Auth\LoginController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\SpecializationController;
 use App\Http\Controllers\Backend\StrandController;
+use App\Http\Controllers\Backend\StudentController;
 use App\Http\Controllers\Backend\SubjectController;
 use Illuminate\Support\Facades\Route;
 
@@ -61,6 +62,15 @@ Route::middleware(['auth','alert'])->prefix('admin')->name('admin.')->group(func
         });
     });
 
+    Route::prefix('student')->name('student.')->controller(StudentController::class)->group(function () {
+        Route::get('/{grade_level_id?}/{strand_id?}', 'index')->name('index');
+            Route::get('/create', 'create')->name('create');
+            Route::post('/store', 'store')->name('store');
+            Route::get('/show/{id}', 'show')->name('show');
+            Route::get('/edit/{id}', 'edit')->name('edit');
+            Route::put('/update/{table}/{id}', 'update')->name('update');
+            Route::delete('/destroy/{id}', 'destroy')->name('destroy');
+    });
 
     /* Admin */
     Route::middleware(['isAdmin'])->group(function () {
