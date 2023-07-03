@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\GradeLevel;
 use App\Models\Semester;
 use App\Models\Specialization;
 use App\Models\Subject;
@@ -15,7 +16,7 @@ class SubjectController extends Controller
      */
     public function index($specialization_id = null)
     {
-        
+
         if ($specialization_id !=null) {
             $specialization = Specialization::with('strand','subjects')->find($specialization_id);
             $subjects = $specialization->subjects;
@@ -25,7 +26,8 @@ class SubjectController extends Controller
         }
         $specializations = Specialization::with('strand','subjects')->get();
         $semesters = Semester::all();
-        return view('SMS.backend.pages.academics.subject.index', compact('specializations','specialization','subjects','semesters','specialization_id'));
+        $gradeLevels = GradeLevel::all();
+        return view('SMS.backend.pages.academics.subject.index', compact('specializations','specialization','subjects','semesters','gradeLevels','specialization_id'));
     }
 
     /**
@@ -45,8 +47,9 @@ class SubjectController extends Controller
             $request->validate([
                 'code' => 'required',
                 'name' => 'required',
-                'unit' => 'required',
                 'type' => 'required',
+                'unit' => 'required',
+                'grade_level_id' => 'required',
                 'semester_id' => 'required',
                 'specialization_id' => 'required',
             ]);
@@ -54,8 +57,8 @@ class SubjectController extends Controller
                 'code' => $request->code,
                 'name' => $request->name,
                 'unit' => $request->unit,
-                'prerequisite' => $request->prerequisite,
                 'type' => $request->type,
+                'grade_level_id' => $request->grade_level_id,
                 'semester_id' => $request->semester_id,
                 'specialization_id' => $request->specialization_id,
             ]);
@@ -92,8 +95,8 @@ class SubjectController extends Controller
                 'code' => $request->code,
                 'name' => $request->name,
                 'unit' => $request->unit,
-                'prerequisite' => $request->prerequisite,
                 'type' => $request->type,
+                'semester_id' => $request->semester_id,
                 'semester_id' => $request->semester_id,
                 'specialization_id' => $request->specialization_id,
             ]);

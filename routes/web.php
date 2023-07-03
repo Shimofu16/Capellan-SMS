@@ -29,7 +29,7 @@ Route::controller(LoginController::class)->group(function () {
     Route::post('/login', 'login')->name('auth.store');
     Route::post('/logout',  'logout')->name('auth.delete')->middleware('auth');
 });
-Route::middleware(['auth','alert'])->prefix('admin')->name('admin.')->group(function () {
+Route::middleware(['auth','alert','isUserActive'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
     Route::prefix('academics')->name('academic.')->group(function () {
@@ -91,7 +91,7 @@ Route::middleware(['auth','alert'])->prefix('admin')->name('admin.')->group(func
                 Route::get('/show/{id}', 'show')->name('show');
                 Route::get('/edit/{id}', 'edit')->name('edit');
                 Route::post('/update/{id}', 'update')->name('update');
-                Route::post('/destroy/{id}', 'destroy')->name('destroy');
+                Route::delete('/destroy/{id}', 'destroy')->name('destroy');
             });
 
         });

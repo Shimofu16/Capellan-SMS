@@ -14,7 +14,7 @@ class UserController extends Controller
     public function index()
     {
         $users = User::all();
-        return view('SMS.backend.pages.user.index',compact('users'));
+        return view('SMS.backend.pages.user.index', compact('users'));
     }
 
     /**
@@ -40,9 +40,9 @@ class UserController extends Controller
     {
         try {
             $user = User::findOrFail($id);
-            return view('SMS.backend.pages.user.show',compact('user'));
+            return view('SMS.backend.pages.user.show', compact('user'));
         } catch (\Throwable $th) {
-            return back()->with('errorAlert',$th->getMessage());
+            return back()->with('errorAlert', $th->getMessage());
         }
     }
 
@@ -67,6 +67,12 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            $user = User::findOrFail($id);
+            $user->update(['status' => 'offline']);
+            return back()->with('successToast', 'Successfully logged out user');
+        } catch (\Throwable $th) {
+            return back()->with('errorAlert', $th->getMessage());
+        }
     }
 }

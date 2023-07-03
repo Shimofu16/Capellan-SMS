@@ -66,7 +66,6 @@ class MaintenanceController extends Controller
                 $billing->save();
                 return redirect()->back()->with('successToast', 'Billing fee updated successfully!');
             } elseif ($table === 'sy') {
-
                 $school_year = SchoolYear::find($id);
                 $school_year->name = date('Y', strtotime($request->start_date)) . '-' . date('Y', strtotime($request->end_date));
                 $school_year->start_date = date('Y-m-d', strtotime($request->start_date));

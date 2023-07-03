@@ -16,12 +16,13 @@ return new class extends Migration
             $table->string('code');
             $table->string('name');
             $table->integer('unit');
-            $table->string('prerequisite')->nullable(); // none, subject code
-            $table->string('type')->default('core'); // core, elective, specialization
+            $table->string('type'); // core, elective, specialization
             $table->unsignedBigInteger('specialization_id');
             $table->unsignedBigInteger('semester_id');
+            $table->unsignedBigInteger('grade_level_id');
             $table->foreign('specialization_id')->references('id')->on('specializations');
             $table->foreign('semester_id')->references('id')->on('semesters');
+            $table->foreign('grade_level_id')->references('id')->on('grade_levels');            
             $table->timestamps();
             /*
             Core courses are mandatory courses you must study to meet the requirements of your program.

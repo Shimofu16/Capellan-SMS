@@ -11,7 +11,7 @@
                     @method('PUT')
                     <div class="row mb-3">
                         <div class="col-12">
-                            <label for="code" class="form-label fw-bold text-black">code</label>
+                            <label for="code" class="form-label fw-bold text-black">Code</label>
                             <input type="text" class="form-control" id="code" name="code"
                                 value="{{ $subject->code }}">
                             @error('code')
@@ -31,7 +31,7 @@
                     </div>
                     <div class="row mb-3">
                         <div class="col-12">
-                            <label for="unit" class="form-label fw-bold text-black">unit</label>
+                            <label for="unit" class="form-label fw-bold text-black">Unit</label>
                             <input type="number" class="form-control" id="unit" name="unit"
                                 value="{{ $subject->unit }}">
                             @error('unit')
@@ -39,36 +39,34 @@
                             @enderror
                         </div>
                     </div>
-                    <div class="row mb-3">
-                        <div class="col-12">
-                            <label for="prerequisite" class="form-label fw-bold text-black">Prerequisite</label>
-                            <select name="prerequisite" id="prerequisite" class="form-control">
-                                <option value="">Select prerequisite</option>
-                                @foreach ($subjects as $sub)
-                                    <option value="{{ $sub->code }}"
-                                        @if ($sub->code === $subject->prerequisite) selected @endif>
-                                        {{ $sub->code }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            @error('prerequisite')
-                                <div class="text-danger">{{ $message }}</div>
-                            @enderror
-                        </div>
-                    </div>
+
                     <div class="row mb-3">
                         <div class="col-12">
                             <label for="type" class="form-label fw-bold text-black">Type</label>
                             <select name="type" id="type" class="form-control">
                                 <option value="">Select type</option>
                                 <option value="Core" @if ($subject->type == 'Core') selected @endif>Core</option>
-                                <option value="Elective" @if ($subject->type == 'Elective') selected @endif>Elective
-                                </option>
-                                <option value="Specialization" @if ($subject->type == 'Specialization') selected @endif>
-                                    Specialization
+                                <option value="Applied and Specialized Subjects" @if ($subject->type == 'Applied and Specialized Subjects') selected @endif>Applied and Specialized Subjects
                                 </option>
                             </select>
                             @error('type')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            <label for="grade_level_id" class="form-label fw-bold text-black">Grade Level</label>
+                            <select name="grade_level_id" id="grade_level_id" class="form-control">
+                                <option value="">Select grade level</option>
+                                @foreach ($gradeLevels as $gradLevel)
+                                    <option value="{{ $gradLevel->id }}"
+                                        @if ($gradLevel->id == $subject->grade_level_id) selected @endif>
+                                        {{ $gradLevel->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('specialization_id')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
@@ -90,6 +88,7 @@
                             @enderror
                         </div>
                     </div>
+
                     <div class="row mb-3">
                         <div class="col-12">
                             <label for="semester_id" class="form-label fw-bold text-black">Semester</label>

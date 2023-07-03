@@ -64,8 +64,6 @@
                                     <th scope="col">Code</th>
                                     <th scope="col">Name</th>
                                     <th scope="col">Units</th>
-                                    <th scope="col">Prerequisite</th>
-                                    <th scope="col">Type</th>
                                     <th scope="col">Semester</th>
                                     @if ($specialization_id == null)
                                         <th scope="col">Specialization</th>
@@ -79,14 +77,6 @@
                                         <td>{{ $subject->code }}</td>
                                         <td>{{ $subject->name }}</td>
                                         <td>{{ $subject->unit }}</td>
-                                        <td>
-                                            @if ($subject->prerequisite != null)
-                                                {{ $subject->prerequisite }}
-                                            @else
-                                                None
-                                            @endif
-                                        </td>
-                                        <td>{{ $subject->type }}</td>
                                         <td>{{ $subject->semester->name }}</td>
                                         @if ($specialization_id == null)
                                             <td>{{ $subject->specialization->name }}</td>

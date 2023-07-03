@@ -28,13 +28,9 @@ return new class extends Migration
             $table->unsignedBigInteger('grade_level_id');
             $table->unsignedBigInteger('strand_id');
             $table->unsignedBigInteger('sy_id');
-            $table->unsignedBigInteger('semester_id');
-
             $table->foreign('grade_level_id')->references('id')->on('grade_levels');
             $table->foreign('strand_id')->references('id')->on('strands');
             $table->foreign('sy_id')->references('id')->on('school_years');
-            $table->foreign('semester_id')->references('id')->on('semesters');
-
             $table->timestamps();
         });
     }
