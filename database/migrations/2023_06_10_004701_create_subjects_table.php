@@ -22,7 +22,7 @@ return new class extends Migration
             $table->unsignedBigInteger('grade_level_id');
             $table->foreign('specialization_id')->references('id')->on('specializations');
             $table->foreign('semester_id')->references('id')->on('semesters');
-            $table->foreign('grade_level_id')->references('id')->on('grade_levels');            
+            $table->foreign('grade_level_id')->references('id')->on('grade_levels');
             $table->timestamps();
             /*
             Core courses are mandatory courses you must study to meet the requirements of your program.

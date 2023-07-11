@@ -56,16 +56,11 @@ class MaintenanceController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $table,  $id)
+    public function update(Request $request,  $id)
     {
         try {
 
-            if ($table === 'billing') {
-                $billing = Billing::find($id);
-                $billing->fee = $request->fee;
-                $billing->save();
-                return redirect()->back()->with('successToast', 'Billing fee updated successfully!');
-            } elseif ($table === 'sy') {
+
                 $school_year = SchoolYear::find($id);
                 $school_year->name = date('Y', strtotime($request->start_date)) . '-' . date('Y', strtotime($request->end_date));
                 $school_year->start_date = date('Y-m-d', strtotime($request->start_date));
@@ -74,7 +69,6 @@ class MaintenanceController extends Controller
                 $school_year->is_active = $request->is_active;
                 $school_year->save();
                 return redirect()->back()->with('successToast', 'School year updated successfully!');
-            }
         } catch (\Throwable $th) {
             return redirect()->back()->with('errorAlert', $th->getMessage());
         }

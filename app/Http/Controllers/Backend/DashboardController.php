@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Specialization;
+use App\Models\Student;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -12,7 +14,9 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view('SMS.backend.pages.dashboard.index');
+        $getTotalPerSpecialization = Specialization::withCount('students')->get();
+$studentsCount = Student::count();
+        return view('SMS.backend.pages.dashboard.index',compact('getTotalPerSpecialization','studentsCount'));
     }
 
     /**

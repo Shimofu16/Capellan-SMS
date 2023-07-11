@@ -27,7 +27,7 @@ use Illuminate\Support\Facades\Route;
 Route::controller(LoginController::class)->group(function () {
     Route::get('/', 'index')->name('auth.index');
     Route::post('/login', 'login')->name('auth.store');
-    Route::post('/logout',  'logout')->name('auth.delete')->middleware('auth');
+    Route::post('/logout',  'logout')->name('auth.delete')->middleware(['auth','isUserActive']);
 });
 Route::middleware(['auth','alert','isUserActive'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
@@ -63,13 +63,14 @@ Route::middleware(['auth','alert','isUserActive'])->prefix('admin')->name('admin
     });
 
     Route::prefix('student')->name('student.')->controller(StudentController::class)->group(function () {
-        Route::get('/{grade_level_id?}/{strand_id?}', 'index')->name('index');
-            Route::get('/create', 'create')->name('create');
-            Route::post('/store', 'store')->name('store');
-            Route::get('/show/{id}', 'show')->name('show');
-            Route::get('/edit/{id}', 'edit')->name('edit');
-            Route::put('/update/{table}/{id}', 'update')->name('update');
-            Route::delete('/destroy/{id}', 'destroy')->name('destroy');
+        Route::get('/create', 'create')->name('create');
+        Route::post('/import', 'import')->name('import');
+        Route::get('/show/{id}', 'show')->name('show');
+        Route::post('/store/{student_id}/{grade_level_id}/{status}', 'store')->name('store');
+        Route::get('/edit/{id}', 'edit')->name('edit');
+        Route::put('/update/{table}/{id}', 'update')->name('update');
+        Route::delete('/destroy/{id}', 'destroy')->name('destroy');
+        Route::get('/{grade_level_id?}/{specialization_id?}', 'index')->name('index');
     });
 
     /* Admin */
@@ -80,7 +81,7 @@ Route::middleware(['auth','alert','isUserActive'])->prefix('admin')->name('admin
             Route::post('/store', 'store')->name('store');
             Route::get('/show/{id}', 'show')->name('show');
             Route::get('/edit/{id}', 'edit')->name('edit');
-            Route::put('/update/{table}/{id}', 'update')->name('update');
+            Route::put('/update/{id}', 'update')->name('update');
             Route::delete('/destroy/{id}', 'destroy')->name('destroy');
         });
         Route::prefix('user')->name('user.')->group(function () {

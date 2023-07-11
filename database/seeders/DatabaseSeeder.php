@@ -21,10 +21,10 @@ class DatabaseSeeder extends Seeder
             SemesterSeeder::class,
             SchoolYearSeeder::class,
             GradeLevelSeeder::class,
-            /* StrandSeeder::class,
+        StrandSeeder::class,
             SpecializationSeeder::class,
-            SubjectSeeder::class, */
-            BillingSeeder::class,
+            SubjectSeeder::class,
+               /*  BillingSeeder::class,*/
         ]);
     }
 }

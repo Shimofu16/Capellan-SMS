@@ -13,29 +13,15 @@ class StrandSeeder extends Seeder
     public function run(): void
     {
         $data = [
-            [
-                'name' => 'Accountancy, Business and Management',
-                'slug' => 'ABM',
-            ],
-            [
-                'name' => 'General Academic Strand',
-                'slug' => 'GAS',
-            ],
-            [
-                'name' => 'Humanities and Social Sciences',
-                'slug' => 'HUMSS',
-            ],
-            [
-                'name' => 'Science, Technology, Engineering, and Mathematics strand',
-                'slug' => 'STEM',
-            ],
-            [
-                'name' => 'Technical Vocational Livelihood Strand',
-                'slug' => 'TVL',
-            ],
+            [ 'Industrial Arts', 'IA'],
+            [ 'Information and Communications Technology', 'ICT'],
+            [ 'Home Economics', 'HE']
         ];
         foreach ($data as $key => $value) {
-            \App\Models\Strand::create($value);
+            \App\Models\Strand::create([
+                'name' => $value[0],
+                'slug' => $value[1]
+            ]);
         }
     }
 }

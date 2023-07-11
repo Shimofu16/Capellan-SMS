@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('strands', function (Blueprint $table) {
+        schema::create('strands', function (blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('slug')->unique(); // abm, gas, humss, stem, tvl

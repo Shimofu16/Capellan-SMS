@@ -24,12 +24,13 @@ return new class extends Migration
             $table->string('birth_date');
             $table->string('contact_num')->nullable();
             $table->string('address');
-            $table->string('status'); // Enrolled, Dropped, Transferred, Graduated, Retained, Promoted.
-            $table->unsignedBigInteger('grade_level_id');
-            $table->unsignedBigInteger('strand_id');
-            $table->unsignedBigInteger('sy_id');
+            $table->string('status')->nullable();// Enrolled, Dropped, Transferred, Graduated, Retained, Promoted.
+            $table->boolean('enrollment_status')->default(0);// done or not
+            $table->unsignedBigInteger('grade_level_id')->nullable();
+            $table->unsignedBigInteger('specialization_id');
+            $table->unsignedBigInteger('sy_id')->nullable();
             $table->foreign('grade_level_id')->references('id')->on('grade_levels');
-            $table->foreign('strand_id')->references('id')->on('strands');
+            $table->foreign('specialization_id')->references('id')->on('specializations');
             $table->foreign('sy_id')->references('id')->on('school_years');
             $table->timestamps();
         });

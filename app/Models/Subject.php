@@ -10,15 +10,18 @@ class Subject extends Model
     use HasFactory;
     protected $guarded = [];
 
-    public function semester () {
+    public function semester()
+    {
         return $this->belongsTo(Semester::class, 'semester_id');
     }
 
-    public function specialization () {
+    public function specialization()
+    {
         return $this->belongsTo(Specialization::class, 'specialization_id');
     }
 
-    public function prerequisites () {
-        return $this->hasOne(Prerequisite::class, 'subject_id');
+    public function gradeLevel()
+    {
+        return $this->belongsTo(gradeLevel::class, 'grade_level_id');
     }
 }
