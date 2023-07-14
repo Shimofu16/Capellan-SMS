@@ -11,7 +11,7 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 use Illuminate\Contracts\View\View; // Add this import statement
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 
-class StudentSubject implements FromView,ShouldAutoSize
+class StudentSubject implements FromView, ShouldAutoSize
 {
     use Exportable;
     private $student;
@@ -23,10 +23,32 @@ class StudentSubject implements FromView,ShouldAutoSize
 
     public function view(): View
     {
-        $subjects = ModelsStudentSubject::where('student_id', $this->student->id)->whereDate('created_at',now())->get();
-        return view('exports.student-subjecs', [
+        $subjectsCoreFirstSem = ModelsStudentSubject::with('subject')->whereHas('subject', function ($query) {
+
+            $query->where('type', 'Core')->where('semester_id', 1);
+        })
+            ->where('student_id', $this->student->id)->whereDate('created_at', now())->get();
+        $subjectsASSFirstSem = ModelsStudentSubject::with('subject')->whereHas('subject', function ($query) {
+
+            $query->where('type', 'Applied and Specialized Subjects')->where('semester_id', 1);
+        })
+            ->where('student_id', $this->student->id)->whereDate('created_at', now())->get();
+        $subjectsCoreSecondSem = ModelsStudentSubject::with('subject')->whereHas('subject', function ($query) {
+
+            $query->where('type', 'Core')->where('semester_id', 2);
+        })
+            ->where('student_id', $this->student->id)->whereDate('created_at', now())->get();
+        $subjectsASSSecondSem = ModelsStudentSubject::with('subject')->whereHas('subject', function ($query) {
+
+            $query->where('type', 'Applied and Specialized Subjects')->where('semester_id', 2);
+        })
+            ->where('student_id', $this->student->id)->whereDate('created_at', now())->get();
+        return view('exports.student-subjects', [
             'student' => $this->student,
-            'subjects' => $subjects,
+            'subjectsCoreFirstSem' => $subjectsCoreFirstSem,
+            'subjectsASSFirstSem' => $subjectsASSFirstSem,
+            'subjectsCoreSecondSem' => $subjectsCoreSecondSem,
+            'subjectsASSSecondSem' => $subjectsASSSecondSem,
         ]);
     }
 }

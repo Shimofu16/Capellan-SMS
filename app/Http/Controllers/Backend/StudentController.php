@@ -18,22 +18,22 @@ class StudentController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index($grade_level_id = null, $specialization_id = null)
+    public function index($type = null, $id = null)
     {
         $gradeLevel = null;
         $specialization = null;
-        if ($grade_level_id) {
-            $gradeLevel = GradeLevel::with('students')->find($grade_level_id);
+        if ($type === "Grade Level") {
+            $gradeLevel = GradeLevel::with('students')->find($id);
             $students = $gradeLevel->students;
-        } else if ($specialization_id) {
-            $specialization = Specialization::with('students')->find($specialization_id);
+        } else if ($type === "Specialization") {
+            $specialization = Specialization::with('students')->find($id);
             $students = $specialization->students;
         } else {
             $students = Student::all();
         }
         $gradeLevels = GradeLevel::all();
         $specializations = Specialization::all();
-        return view('SMS.backend.pages.students.index', compact('students', 'gradeLevels', 'grade_level_id', 'gradeLevel', 'specializations', 'specialization_id', 'specialization'));
+        return view('SMS.backend.pages.students.index', compact('students', 'gradeLevels',  'gradeLevel', 'specializations',  'specialization','type'));
     }
     public function import(Request $request)
     {
@@ -68,10 +68,14 @@ class StudentController extends Controller
     {
         try {
             // dd($request->all());
+            /* delete all  student subjects before creating new one */
+            StudentSubject::where('student_id', $student_id)->delete();
             foreach ($request->enroll_subjects as $subject_id) {
                 StudentSubject::create([
                     'student_id' => $student_id,
                     'subject_id' => $subject_id,
+                    'status' => $status
+
                 ]);
             }
             if ($request->has('completed_subjects')) {
@@ -79,12 +83,14 @@ class StudentController extends Controller
                     StudentSubject::create([
                         'student_id' => $student_id,
                         'subject_id' => $subject_id,
+                        'status' => $status
                     ]);
                 }
             }
             $student = Student::findOrFail($student_id);
             $student->grade_level_id = $grade_level_id;
             $student->status = $status;
+            $student->enrollment_status = true;
             $student->save();
             $name = $student->getFullName();
             $export = new ExportsStudentSubject($student);

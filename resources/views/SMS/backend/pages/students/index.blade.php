@@ -30,7 +30,7 @@
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                     @foreach ($gradeLevels as $level)
                                         <li><a class="dropdown-item"
-                                                href="{{ route('admin.student.index', ['grade_level_id' => $level->id]) }}">{{ $level->name }}</a>
+                                                href="{{ route('admin.student.index', ['type' => "Specialization",'id' => $level->id]) }}">{{ $level->name }}</a>
                                         </li>
                                     @endforeach
                                 </ul>
@@ -44,7 +44,7 @@
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
                                     @forelse ($specializations as $specialization)
                                         <li><a class="dropdown-item"
-                                                href="{{ route('admin.student.index', ['specialization_id' => $specialization->id]) }}">{{ $specialization->name }}</a>
+                                                href="{{ route('admin.student.index', ['type' => "Specialization",'id' => $specialization->id]) }}">{{ $specialization->name }}</a>
                                         </li>
                                     @empty
                                         <li><a class="dropdown-item" href="#">No Specializations</a></li>
@@ -67,10 +67,10 @@
                                     <th scope="col">Birth date</th>
                                     <th scope="col">Address</th>
 
-                                    @if ($grade_level_id == null)
+                                    @if ($type != "Grade Level")
                                         <th scope="col">Grade Level</th>
                                     @endif
-                                    @if ($specialization_id == null)
+                                    @if ($type != "Specialization")
                                         <th scope="col">Specialization</th>
                                     @endif
 
@@ -90,23 +90,21 @@
                                         <td>{{ $student->sex }}</td>
                                         <td>{{ date('F d, Y', strtotime($student->birth_date)) }}</td>
                                         <td>{{ $student->address }}</td>
-                                        @if ($grade_level_id == null)
+                                        @if ($type != "Grade Level")
                                             <td>{{ $student->enrollment_status ? $student->gradeLevel->name : 'No Data' }}
                                             </td>
                                         @endif
-                                        @if ($specialization_id == null)
+                                        
+                                        @if ($type != "Specialization")
                                             <td>{{ $student->specialization->name }}</td>
                                         @endif
                                         <td class="text-center">
-                                            @if ($student->status)
-                                            @else
                                                 <div class="btn-group" role="group" aria-label="Basic example">
                                                     <a href="{{ route('admin.student.edit', ['id' => $student->id]) }}"
                                                         class="btn btn-sm btn-outline-maroon">
                                                         <i class="fas fa-edit"></i>
                                                     </a>
                                                 </div>
-                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach

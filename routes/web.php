@@ -62,16 +62,17 @@ Route::middleware(['auth','alert','isUserActive'])->prefix('admin')->name('admin
         });
     });
 
-    Route::prefix('student')->name('student.')->controller(StudentController::class)->group(function () {
-        Route::get('/create', 'create')->name('create');
-        Route::post('/import', 'import')->name('import');
-        Route::get('/show/{id}', 'show')->name('show');
-        Route::post('/store/{student_id}/{grade_level_id}/{status}', 'store')->name('store');
-        Route::get('/edit/{id}', 'edit')->name('edit');
-        Route::put('/update/{table}/{id}', 'update')->name('update');
-        Route::delete('/destroy/{id}', 'destroy')->name('destroy');
-        Route::get('/{grade_level_id?}/{specialization_id?}', 'index')->name('index');
+    Route::prefix('student')->name('student.')->group(function () {
+        Route::get('/create', [StudentController::class, 'create'])->name('create');
+        Route::post('/import', [StudentController::class, 'import'])->name('import');
+        Route::get('/show/{id}', [StudentController::class, 'show'])->name('show');
+        Route::get('/edit/{id}', [StudentController::class, 'edit'])->name('edit');
+        Route::put('/update/{table}/{id}', [StudentController::class, 'update'])->name('update');
+        Route::delete('/destroy/{id}', [StudentController::class, 'destroy'])->name('destroy');
+        Route::get('/{type?}/{id?}', [StudentController::class, 'index'])->name('index');
+        Route::post('/store/{student_id}/{grade_level_id}/{status}', [StudentController::class, 'store'])->name('store');
     });
+
 
     /* Admin */
     Route::middleware(['isAdmin'])->group(function () {

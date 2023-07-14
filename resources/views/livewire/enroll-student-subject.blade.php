@@ -35,10 +35,10 @@
                         <th>Subject Code</th>
                         <th>Subject</th>
                         @if ($status == 'Regular' || $status === 'Transferee')
-                            <th>Incomplete Subject</th>
+                            <th>Enroll Subject</th>
                         @elseif ($status == 'Iregular')
                             <th>Completed Subject</th>
-                            <th>Incomplete Subject</th>
+                            <th>Enroll Subject</th>
                         @endif
                     </tr>
                 </thead>
@@ -54,7 +54,7 @@
                             <td>{{ $subjectForFirstSemGrade11Core->name }}</td>
                             @if ($status === 'Regular' || $status === 'Transferee')
                                 <td>
-                                    <input type="checkbox" name="enroll_subjects[]"
+                                    <input type="checkbox" name="enroll_subjects[]" {{ ($status === "Regular") ? 'checked': '' }} 
                                         value="{{ $subjectForFirstSemGrade11Core->id }}">
                                 </td>
                             @endif
@@ -85,7 +85,7 @@
                             <td>{{ $subjectForFirstSemGrade11AppliedSpecializedSubjects->name }}</td>
                             @if ($status === 'Regular' || $status === 'Transferee')
                                 <td>
-                                    <input type="checkbox" name="enroll_subjects[]"
+                                    <input type="checkbox" name="enroll_subjects[]" {{ ($status === "Regular") ? 'checked': '' }}
                                         value="{{ $subjectForFirstSemGrade11AppliedSpecializedSubjects->id }}">
                                 </td>
                             @endif
@@ -133,7 +133,7 @@
                             <td>{{ $subjectForSecondSemGrade11Core->name }}</td>
                             @if ($status === 'Regular' || $status === 'Transferee')
                                 <td>
-                                    <input type="checkbox" name="enroll_subjects[]"
+                                    <input type="checkbox" name="enroll_subjects[]" {{ ($status === "Regular") ? 'checked': '' }}
                                         value="{{ $subjectForSecondSemGrade11Core->id }}">
                                 </td>
                             @endif
@@ -164,7 +164,7 @@
                             <td>{{ $subjectForSecondSemGrade11AppliedSpecializedSubjects->name }}</td>
                             @if ($status === 'Regular' || $status === 'Transferee')
                                 <td>
-                                    <input type="checkbox" name="enroll_subjects[]"
+                                    <input type="checkbox" name="enroll_subjects[]" {{ ($status === "Regular") ? 'checked': '' }}
                                         value="{{ $subjectForSecondSemGrade11AppliedSpecializedSubjects->id }}">
                                 </td>
                             @endif

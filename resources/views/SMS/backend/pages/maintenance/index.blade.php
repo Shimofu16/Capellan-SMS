@@ -18,8 +18,12 @@
                         <h3 class="text-maroon">School Year
                         </h3>
                         <div class="d-flex align-items-center">
-
-
+                            <button class="btn btn-outline-maroon " data-bs-toggle="modal"
+                                data-bs-target="#add">
+                                <i class="ri-add-line"></i>
+                                Add School Year
+                            </button>
+                            @include('SMS.backend.pages.maintenance.modal._add_school_year')
                         </div>
 
                     </div>
@@ -32,6 +36,7 @@
                                     <th scope="col">Name</th>
                                     <th scope="col">Current Semester</th>
                                     <th scope="col">Start and End Dates</th>
+                                    <th scope="col">Current SY</th>
                                     <th scope="col" class="text-center">Action</th>
                                 </tr>
                             </thead>
@@ -41,6 +46,13 @@
                                         <td>{{ $sy->name }}</td>
                                         <td>{{ $sy->semester->name }}</td>
                                         <td>{{ date('F d, Y', strtotime($sy->start_date))   }} - {{date('F d, Y', strtotime($sy->end_date))}}</td>
+                                        <td>
+                                            @if ($sy->is_active == 1)
+                                                <span class="badge bg-maroon">Active</span>
+                                            @else
+                                                <span class="badge bg-secondary">Inactive</span>
+                                            @endif
+                                        </td>
                                         <td class="text-center">
                                             <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal"
                                                 data-bs-target="#edit{{ $sy->id }}">
