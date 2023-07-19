@@ -20,7 +20,14 @@
         @if (count($subjectsCoreFirstSem) != 0 || count($subjectsASSFirstSem) != 0)
             <tr>
                 <th style="text-align:center; font-size: 12px;">Subject Code</th>
-                <th style="text-align:center; font-size: 12px;">Subject</th>
+                <th style="text-align:center; font-size: 12px;">
+                    @if ($student->status === "Iregular")
+                        Completed/Enrolled
+                        @else
+
+                    @endif
+                    Subject</th>
+
             </tr>
         @endif
     </thead>
@@ -66,7 +73,13 @@
             </tr>
             <tr>
                 <th style="text-align:center; font-size: 12px;">Subject Code</th>
-                <th style="text-align:center; font-size: 12px;">Subject</th>
+                <th style="text-align:center; font-size: 12px;">
+                    @if ($student->status === "Iregular")
+                        Completed/Enrolled
+                        @else
+
+                    @endif
+                    Subject</th>
             </tr>
         </thead>
         <tbody>

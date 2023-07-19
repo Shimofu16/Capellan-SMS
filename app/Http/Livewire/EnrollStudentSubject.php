@@ -16,8 +16,24 @@ class EnrollStudentSubject extends Component
     public $subjectsForSecondSemGrade11AppliedSpecializedSubjects;
     public $subject_id;
     public $status;
-    public $completed_subjects = [];
-    public $incomplete_subjects = [];
+    public $completed = [];
+    public $enroll = [];
+    public function checkTheIds($id,$isCompleted){
+        if ($isCompleted) {
+            foreach ($this->enroll as $key => $value) {
+                if ($value == $id) {
+                    return true;
+                }
+            }
+        } else {
+            foreach ($this->completed as $key => $value) {
+                if ($value == $id) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
     public function updatedGradeLevelId($value)
     {
         $specialization_id = $this->student->specialization_id;
