@@ -15,7 +15,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" id="submit-e" class="btn btn-maroon">Import</button>
+                    <button type="submit" id="submit-e" class="btn btn-primary">Import</button>
                 </div>
             </form>
         </div>

@@ -36,7 +36,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" id="submit-e" class="btn btn-maroon">Add</button>
+                    <button type="submit" id="submit-e" class="btn btn-primary">Add</button>
                 </div>
             </form>
         </div>

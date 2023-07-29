@@ -20,35 +20,13 @@
                     <span>Dashboard</span>
                 </a>
             </li>
+
             <li class="nav-item">
-                <a class="nav-link collapsed {{ Route::is('admin.academic.*') ? 'active' : '' }}" data-bs-target="#academics"
-                    data-bs-toggle="collapse" href="#">
+                <a class="nav-link {{ Route::is('admin.academic.strand.index') ? 'active' : '' }}"
+                    href="{{ route('admin.academic.strand.index') }}">
                     <i class="fa-solid icon-yellow fa-book-open"></i>
                     <span>Academics</span>
-                    <i class="bi bi-chevron-down ms-auto icon-yellow"></i>
                 </a>
-                <ul id="academics" class="nav-content collapse p-2" data-bs-parent="#sidebar-nav">
-                    <li class="{{ Route::is('admin.academic.strand.index') ? 'collapse-active' : '' }}">
-                        <a href="{{ route('admin.academic.strand.index') }}">
-                            <i class="bi bi-circle"></i>
-                            <span>Strand</span>
-                        </a>
-                    </li>
-                    <li class="{{ Route::is('admin.academic.specialization.index') ? 'collapse-active' : '' }}">
-                        <a href="{{ route('admin.academic.specialization.index') }}">
-                            <i class="bi bi-circle"></i>
-                            <span>Specialization</span>
-                        </a>
-                    </li>
-                    <li class="{{ Route::is('admin.academic.subject.index') ? 'collapse-active' : '' }}">
-                        <a href="{{ route('admin.academic.subject.index') }}">
-                            <i class="bi bi-circle"></i>
-                            <span>Subject</span>
-                        </a>
-                    </li>
-
-                </ul>
-
             </li>
             <!-- End Dashboard Nav -->
             <li class="nav-item">
@@ -59,6 +37,7 @@
                     <span>Students</span>
                 </a>
             </li>
+      
             <!-- End Charts Nav -->
             @if (Auth::user()->isRole('admin'))
                 <li class="nav-item">

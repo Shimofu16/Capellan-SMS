@@ -11,10 +11,10 @@
 
                 <div class="card">
                     <div class="card-header d-flex justify-content-between border-bottom-0">
-                        <h3 class="text-maroon">@yield('page-title')
+                        <h3 class="text-dark fw-bold">@yield('page-title')
                         </h3>
                         <div class="d-flex align-items-center">
-                            <button class="btn btn-outline-maroon me-1" data-bs-toggle="modal" data-bs-target="#add">Add
+                            <button class="btn btn-outline-primary me-1" data-bs-toggle="modal" data-bs-target="#add">Add
                                 Strand
                             </button>
                             @include('SMS.backend.pages.academics.strand.modal._add')
@@ -29,6 +29,7 @@
                                 <tr>
                                     <th scope="col">Name</th>
                                     <th scope="col">Slug</th>
+                                    <th scope="col" >Specialization</th>
                                     <th scope="col" class="text-center">Action</th>
                                 </tr>
                             </thead>
@@ -37,6 +38,11 @@
                                     <tr>
                                         <td>{{ $strand->name }}</td>
                                         <td>{{ $strand->slug }}</td>
+                                        <td>
+                                            <a class="btn btn-outline-info btn-sm" href="{{ route('admin.academic.specialization.index', ['strand_id' =>$strand->id]) }}">
+                                                <i class="ri-eye-line"></i>
+                                            </a>
+                                        </td>
                                         <td class="text-center">
                                             <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal"
                                                 data-bs-target="#edit{{ $strand->id }}">

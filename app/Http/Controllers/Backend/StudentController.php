@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Imports\StudentImport;
 use App\Models\Specialization;
 use App\Http\Controllers\Controller;
+use App\Models\StudentsFromEMS;
 use App\Models\StudentSubject;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -20,6 +21,7 @@ class StudentController extends Controller
      */
     public function index($type = null, $id = null)
     {
+        dd(StudentsFromEMS::all());
         $gradeLevel = null;
         $specialization = null;
         if ($type === "Grade Level") {

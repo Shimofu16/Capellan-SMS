@@ -12,7 +12,7 @@
         Specializations
     @endsection
     @section('breadcrumb-link')
-        {{ route('admin.academic.specialization.index') }}
+        {{ route('admin.academic.specialization.index', ['strand_id' => $strand_id]) }}
     @endsection
 @endif
 @section('contents')
@@ -22,24 +22,20 @@
 
                 <div class="card">
                     <div class="card-header d-flex justify-content-between border-bottom-0">
-                        <h3 class="text-maroon">@yield('page-title')
+                        <h3 class="text-dark fw-bold">@yield('page-title')
                         </h3>
                         <div class="d-flex align-items-center">
-                            @if ($strand_id == null)
-                                <button class="btn btn-outline-maroon me-1" data-bs-toggle="modal" data-bs-target="#add">Add
-                                    Specialization
-                                </button>
-                                @include('SMS.backend.pages.academics.specialization.modal._add')
-                            @else
-                                <a href="{{ route('admin.academic.specialization.index') }}"
-                                    class="btn btn-outline-maroon me-1">
-                                    <i class="ri-arrow-go-back-line"></i>
-                                    Back
-                                </a>
-                            @endif
-                            {{-- generate a dropdown for strands --}}
+                            <a href="{{ route('admin.academic.strand.index') }}" class="btn btn-primary me-1">
+                                <i class="ri-arrow-go-back-line"></i>
+                                Back to Strand
+                            </a>
+                            <button class="btn btn-outline-primary me-1" data-bs-toggle="modal" data-bs-target="#add">Add
+                                Specialization
+                            </button>
+                            @include('SMS.backend.pages.academics.specialization.modal._add')
+
                             <div class="dropdown">
-                                <button class="btn btn-outline-maroon dropdown-toggle" type="button"
+                                <button class="btn btn-outline-primary dropdown-toggle" type="button"
                                     id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                     Strands
                                 </button>
@@ -65,6 +61,7 @@
                                     @if ($strand_id == null)
                                         <th scope="col">Strand</th>
                                     @endif
+                                    <th scope="col">Subjects</th>
                                     <th scope="col" class="text-center">Action</th>
                                 </tr>
                             </thead>
@@ -75,6 +72,12 @@
                                         @if ($strand_id == null)
                                             <td>{{ $specialization->strand->name }}</td>
                                         @endif
+                                        <td>
+                                            <a class="btn btn-outline-info btn-sm"
+                                                href="{{ route('admin.academic.subject.index', ['specialization_id' => $specialization->id]) }}">
+                                                <i class="ri-eye-line"></i>
+                                            </a>
+                                        </td>
                                         <td class="text-center">
                                             <div class="d-flex">
                                                 <button class="btn btn-outline-primary btn-sm me-1" type="button"
@@ -86,7 +89,7 @@
                                                     method="POST">
                                                     @csrf
                                                     @method('DELETE')
-    
+
                                                     <button type="submit" class="btn btn-outline-danger btn-sm"> <i
                                                             class="ri-delete-bin-2-line"></i></button>
                                                 </form>

@@ -11,10 +11,10 @@
 
                 <div class="card">
                     <div class="card-header d-flex justify-content-between border-bottom-0">
-                        <h3 class="text-maroon">@yield('page-title')
+                        <h3 class="text-dark fw-bold">@yield('page-title')
                         </h3>
                         <div class="d-flex align-items-center">
-                            <button class="btn btn-outline-maroon me-1" data-bs-toggle="modal" data-bs-target="#add">Add
+                            <button class="btn btn-outline-primary me-1" data-bs-toggle="modal" data-bs-target="#add">Add
                                 Account</button>
 
                         </div>

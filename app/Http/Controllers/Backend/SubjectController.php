@@ -14,16 +14,12 @@ class SubjectController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index($specialization_id = null)
+    public function index($specialization_id)
     {
 
-        if ($specialization_id !=null) {
             $specialization = Specialization::with('strand','subjects')->find($specialization_id);
             $subjects = $specialization->subjects;
-        } else {
-            $subjects = Subject::with('semester','specialization')->get();
-            $specialization = null;
-        }
+
         $specializations = Specialization::with('strand','subjects')->get();
         $semesters = Semester::all();
         $gradeLevels = GradeLevel::all();

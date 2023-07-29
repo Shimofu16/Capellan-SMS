@@ -12,7 +12,7 @@
         Subjects
     @endsection
     @section('breadcrumb-link')
-        {{ route('admin.academic.subject.index') }}
+        {{ route('admin.academic.subject.index', ['specialization_id' => $specialization_id]) }}
     @endsection
 
 @endif
@@ -23,23 +23,22 @@
 
                 <div class="card">
                     <div class="card-header d-flex justify-content-between border-bottom-0">
-                        <h3 class="text-maroon">@yield('page-title')
+                        <h3 class="text-dark fw-bold">@yield('page-title')
                         </h3>
                         <div class="d-flex align-items-center">
-                            @if ($specialization_id == null)
-                                <button class="btn btn-outline-maroon me-1" data-bs-toggle="modal" data-bs-target="#add">Add
-                                    Subject
-                                </button>
-                                @include('SMS.backend.pages.academics.subject.modal._add')
-                            @else
-                                <a href="{{ route('admin.academic.subject.index') }}" class="btn btn-outline-maroon me-1">
-                                    <i class="ri-arrow-go-back-line"></i>
-                                    Back
-                                </a>
-                            @endif
+                            <a href="{{ route('admin.academic.specialization.index', ['strand_id' => $specialization->strand_id]) }}"
+                                class="btn btn-primary me-1">
+                                <i class="ri-arrow-go-back-line"></i>
+                                Back to Specialization
+                            </a>
+                            <button class="btn btn-outline-primary me-1" data-bs-toggle="modal" data-bs-target="#add">Add
+                                Subject
+                            </button>
+                            @include('SMS.backend.pages.academics.subject.modal._add')
+
                             {{-- generate a dropdown for strands --}}
                             <div class="dropdown">
-                                <button class="btn btn-outline-maroon dropdown-toggle" type="button"
+                                <button class="btn btn-outline-primary dropdown-toggle" type="button"
                                     id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                     Specializations
                                 </button>

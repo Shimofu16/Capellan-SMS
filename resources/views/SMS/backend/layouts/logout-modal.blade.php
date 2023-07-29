@@ -13,7 +13,7 @@
                 <form action="{{ route('auth.delete') }}" method="post">
                     @csrf
                     @method('POST')
-                    <button type="submit" class="btn btn-maroon">Yes</button>
+                    <button type="submit" class="btn btn-primary">Yes</button>
                 </form>
             </div>
         </div>

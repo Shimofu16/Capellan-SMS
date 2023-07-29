@@ -14,16 +14,16 @@
 
                 <div class="card">
                     <div class="card-header d-flex justify-content-between border-bottom-0">
-                        <h3 class="text-maroon">@yield('page-title')
+                        <h3 class="text-dark fw-bold">@yield('page-title')
                         </h3>
                         <div class="d-flex align-items-center">
                             <!-- Add this button/link where you want to trigger the modal -->
-                            <button type="button" class="btn btn-outline-maroon me-1" data-bs-toggle="modal" data-bs-target="#import">
+                            <button type="button" class="btn btn-outline-primary me-1" data-bs-toggle="modal" data-bs-target="#import">
                                 Import Students
                             </button>
                             @include('SMS.backend.pages.students.modal._add')
                             <div class="dropdown me-1">
-                                <button class="btn btn-maroon dropdown-toggle" type="button"
+                                <button class="btn btn-primary dropdown-toggle" type="button"
                                     id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                     Grade Levels
                                 </button>
@@ -37,7 +37,7 @@
 
                             </div>
                             <div class="dropdown">
-                                <button class="btn btn-maroon dropdown-toggle" type="button"
+                                <button class="btn btn-primary dropdown-toggle" type="button"
                                     id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
                                     Specialization
                                 </button>
@@ -101,7 +101,7 @@
                                         <td class="text-center">
                                                 <div class="btn-group" role="group" aria-label="Basic example">
                                                     <a href="{{ route('admin.student.edit', ['id' => $student->id]) }}"
-                                                        class="btn btn-sm btn-outline-maroon">
+                                                        class="btn btn-sm btn-outline-primary">
                                                         <i class="fas fa-edit"></i>
                                                     </a>
                                                 </div>

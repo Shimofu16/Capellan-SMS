@@ -18,7 +18,7 @@
                         <h3 class="text-maroon">School Year
                         </h3>
                         <div class="d-flex align-items-center">
-                            <button class="btn btn-outline-maroon " data-bs-toggle="modal"
+                            <button class="btn btn-outline-primary " data-bs-toggle="modal"
                                 data-bs-target="#add">
                                 <i class="ri-add-line"></i>
                                 Add School Year

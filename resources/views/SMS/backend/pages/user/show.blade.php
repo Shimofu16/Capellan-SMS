@@ -19,10 +19,10 @@
 
                 <div class="card">
                     <div class="card-header d-flex justify-content-between border-bottom-0">
-                        <h3 class="text-maroon">@yield('page-title')
+                        <h3 class="text-dark fw-bold">@yield('page-title')
                         </h3>
                         <div class="d-flex align-items-center">
-                            <a href="{{ route('admin.user.index') }}" class="btn btn-outline-maroon ">
+                            <a href="{{ route('admin.user.index') }}" class="btn btn-outline-primary ">
                                 <i class="ri-arrow-go-back-line"></i>
                                 <span>Back</span>
                             </a>
