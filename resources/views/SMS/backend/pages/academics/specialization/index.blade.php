@@ -68,7 +68,7 @@
                             <tbody>
                                 @foreach ($specializations as $specialization)
                                     <tr>
-                                        <td>{{ $specialization->name }}</td>
+                                        <td>{{ $specialization->specialization }}</td>
                                         @if ($strand_id == null)
                                             <td>{{ $specialization->strand->name }}</td>
                                         @endif

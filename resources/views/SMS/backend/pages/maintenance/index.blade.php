@@ -44,7 +44,7 @@
                                 @foreach ($school_years as $sy)
                                     <tr>
                                         <td>{{ $sy->name }}</td>
-                                        <td>{{ $sy->semester->name }}</td>
+                                        <td>{{ $sy->semester->sem }}</td>
                                         <td>{{ date('F d, Y', strtotime($sy->start_date))   }} - {{date('F d, Y', strtotime($sy->end_date))}}</td>
                                         <td>
                                             @if ($sy->is_active == 1)

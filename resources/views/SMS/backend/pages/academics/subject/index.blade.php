@@ -2,7 +2,7 @@
 
 @section('page-title')
     @if ($specialization_id != null)
-        {{ $specialization->name }}
+        {{ $specialization->specialization }}
     @else
         Subjects
     @endif
@@ -26,11 +26,6 @@
                         <h3 class="text-dark fw-bold">@yield('page-title')
                         </h3>
                         <div class="d-flex align-items-center">
-                            <a href="{{ route('admin.academic.specialization.index', ['strand_id' => $specialization->strand_id]) }}"
-                                class="btn btn-primary me-1">
-                                <i class="ri-arrow-go-back-line"></i>
-                                Back to Specialization
-                            </a>
                             <button class="btn btn-outline-primary me-1" data-bs-toggle="modal" data-bs-target="#add">Add
                                 Subject
                             </button>
@@ -45,7 +40,7 @@
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                     @foreach ($specializations as $specialization)
                                         <li><a class="dropdown-item"
-                                                href="{{ route('admin.academic.subject.index', $specialization->id) }}">{{ $specialization->name }}</a>
+                                                href="{{ route('admin.academic.subject.index', $specialization->id) }}">{{ $specialization->specialization }}</a>
                                         </li>
                                     @endforeach
                                 </ul>
@@ -76,9 +71,9 @@
                                         <td>{{ $subject->code }}</td>
                                         <td>{{ $subject->name }}</td>
                                         <td>{{ $subject->unit }}</td>
-                                        <td>{{ $subject->semester->name }}</td>
+                                        <td>{{ $subject->semester->sem }}</td>
                                         @if ($specialization_id == null)
-                                            <td>{{ $subject->specialization->name }}</td>
+                                            <td>{{ $subject->specialization->specialization }}</td>
                                         @endif
                                         <td class="text-center">
                                             <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal"

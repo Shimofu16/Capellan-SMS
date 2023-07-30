@@ -52,7 +52,7 @@ Route::middleware(['auth','alert','isUserActive'])->prefix('admin')->name('admin
             Route::delete('/delete/{id}', 'destroy')->name('destroy');
         });
         Route::prefix('subject')->name('subject.')->controller(SubjectController::class)->group(function () {
-            Route::get('/{specialization_id}', 'index')->name('index');
+            Route::get('/{specialization_id?}', 'index')->name('index');
             Route::get('/create', 'create')->name('create');
             Route::post('/store', 'store')->name('store');
             Route::get('/show/{id}', 'show')->name('show');

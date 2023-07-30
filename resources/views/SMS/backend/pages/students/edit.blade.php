@@ -1,6 +1,6 @@
 @extends('SMS.backend.sidebar')
 @section('page-title')
-    {{ $student->getFullName() }} 
+    {{ $student->getFullName() }}
 @endsection
 
 @section('contents')
@@ -10,7 +10,7 @@
 
                 <div class="card">
                     <div class="card-header d-flex justify-content-between border-bottom-0">
-                        <h3 class="text-dark fw-bold">@yield('page-title') - {{ $student->specialization->name }}
+                        <h3 class="text-dark fw-bold">@yield('page-title') - {{ $student->enrollment->specialization->specialization }}
                         </h3>
                         <div class="d-flex align-items-center">
                            {{-- backbutton --}}

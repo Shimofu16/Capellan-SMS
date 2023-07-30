@@ -2,6 +2,7 @@
 
 namespace App\Exports;
 
+use App\Models\EMS\Student as EMSStudent;
 use App\Models\Student;
 use App\Models\StudentSubject as ModelsStudentSubject;
 use Maatwebsite\Excel\Concerns\Exportable;
@@ -16,7 +17,7 @@ class StudentSubject implements FromView, ShouldAutoSize
     use Exportable;
     private $student;
 
-    public function __construct(Student $student)
+    public function __construct(EMSStudent $student)
     {
         $this->student = $student;
     }

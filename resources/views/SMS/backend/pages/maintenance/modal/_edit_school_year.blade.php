@@ -35,7 +35,7 @@
                                 <option value="">Select Semester</option>
                                 @foreach ($semesters as $semester)
                                     <option value="{{ $semester->id }}"
-                                        @if ($semester->id == $sy->semester_id) selected @endif>{{ $semester->name }}</option>
+                                        @if ($semester->id == $sy->semester_id) selected @endif>{{ $semester->sem }}</option>
                                 @endforeach
                             </select>
                             @error('semester_id')

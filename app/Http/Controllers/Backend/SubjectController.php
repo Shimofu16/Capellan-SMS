@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
-use App\Models\GradeLevel;
-use App\Models\Semester;
-use App\Models\Specialization;
+use App\Models\EMS\GradeLevel;
+use App\Models\EMS\Semester;
+use App\Models\EMS\Specialization;
 use App\Models\Subject;
 use Illuminate\Http\Request;
 
@@ -14,13 +14,16 @@ class SubjectController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index($specialization_id)
+    public function index($specialization_id = null)
     {
-
+     
+        $specialization = null;
+        $specializations = Specialization::with('strand','subjects')->get();
+        $subjects = Subject::with('semester','specialization','gradeLevel')->get();
+           if ($specialization_id) {
             $specialization = Specialization::with('strand','subjects')->find($specialization_id);
             $subjects = $specialization->subjects;
-
-        $specializations = Specialization::with('strand','subjects')->get();
+        }
         $semesters = Semester::all();
         $gradeLevels = GradeLevel::all();
         return view('SMS.backend.pages.academics.subject.index', compact('specializations','specialization','subjects','semesters','gradeLevels','specialization_id'));

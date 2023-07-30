@@ -2,18 +2,16 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Exports\StudentSubject as ExportsStudentSubject;
-use App\Models\Strand;
-use App\Models\Student;
-use App\Models\GradeLevel;
+use App\Models\EMS\Strand;
+use App\Models\EMS\Student;
 use Illuminate\Http\Request;
 use App\Imports\StudentImport;
-use App\Models\Specialization;
-use App\Http\Controllers\Controller;
-use App\Models\StudentsFromEMS;
-use App\Models\StudentSpecializationFromEMS;
+use App\Models\EMS\GradeLevel;
 use App\Models\StudentSubject;
+use App\Models\EMS\Specialization;
+use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\StudentSubject as ExportsStudentSubject;
 
 class StudentController extends Controller
 {
@@ -22,15 +20,17 @@ class StudentController extends Controller
      */
     public function index($type = null, $id = null)
     {
-        dd(StudentsFromEMS::all(), StudentSpecializationFromEMS::all());
+
         $gradeLevel = null;
         $specialization = null;
         if ($type === "Grade Level") {
-            $gradeLevel = GradeLevel::with('students')->find($id);
-            $students = $gradeLevel->students;
+            $students =  Student::with('enrollment')->whereHas('enrollment', function ($query) use ($id) {
+                $query->where('grade_level_id', $id);
+            })->get();
         } else if ($type === "Specialization") {
-            $specialization = Specialization::with('students')->find($id);
-            $students = $specialization->students;
+            $students =  Student::with('enrollment')->whereHas('enrollment', function ($query) use ($id) {
+                $query->where('specialization_id', $id);
+            })->get();
         } else {
             $students = Student::all();
         }
@@ -91,14 +91,9 @@ class StudentController extends Controller
                 }
             }
             $student = Student::findOrFail($student_id);
-            $student->grade_level_id = $grade_level_id;
-            $student->status = $status;
-            $student->enrollment_status = true;
-            $student->save();
             $name = $student->getFullName();
             $export = new ExportsStudentSubject($student);
             $filename = $name . '.xlsx';
-
             return $export->download($filename);
         } catch (\Throwable $th) {
             return redirect()->back()->with('errorAlert', $th->getMessage());

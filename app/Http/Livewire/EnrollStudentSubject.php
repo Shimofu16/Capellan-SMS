@@ -34,38 +34,28 @@ class EnrollStudentSubject extends Component
         }
         return false;
     }
-    public function updatedGradeLevelId($value)
-    {
-        $specialization_id = $this->student->specialization_id;
-        $this->subjectsForFirstSemGrade11Core = Subject::with('gradeLevel')->where('grade_level_id', $value)
-            ->where('specialization_id', $specialization_id)
-            ->where('type', 'Core')
-            ->where('semester_id', 1)
-            ->get();
-        $this->subjectsForFirstSemGrade11AppliedSpecializedSubjects = Subject::with('gradeLevel')->where('grade_level_id', $value)
-            ->where('specialization_id', $specialization_id)
-            ->where('type', 'Applied and Specialized Subjects')
-            ->where('semester_id', 1)
-            ->get();
-        $this->subjectsForSecondSemGrade11Core = Subject::with('gradeLevel')->where('grade_level_id', $value)
-            ->where('specialization_id', $specialization_id)
-            ->where('type', 'Core')
-            ->where('semester_id', 2)
-            ->get();
-        $this->subjectsForSecondSemGrade11AppliedSpecializedSubjects = Subject::with('gradeLevel')->where('grade_level_id', $value)
-            ->where('specialization_id', $specialization_id)
-            ->where('type', 'Applied and Specialized Subjects')
-            ->where('semester_id', 2)
-            ->get();
-        // dd all
-        // dd( $this->subjectsForFirstSemGrade11Core,   $this->subjectsForFirstSemGrade11AppliedSpecializedSubjects,   $this->subjectsForSecondSemGrade11Core,  $this->subjectsForSecondSemGrade11AppliedSpecializedSubjects);
-    }
+
     public function mount(){
-        $this->subjectsForFirstSemGrade11Core = collect();
-        $this->subjectsForSecondSemGrade11Core = collect();
-        $this->subjectsForSecondSemGrade11AppliedSpecializedSubjects = collect();
-        $this->subjectsForFirstSemGrade11AppliedSpecializedSubjects = collect();
-        $this->grade_level_id = 0;
+        $this->subjectsForFirstSemGrade11Core = Subject::with('gradeLevel')->where('grade_level_id', $this->student->enrollment->gradelevel_id)
+        ->where('specialization_id', $this->student->enrollment->specialization_id)
+        ->where('type', 'Core')
+        ->where('semester_id', 1)
+        ->get();
+    $this->subjectsForFirstSemGrade11AppliedSpecializedSubjects = Subject::with('gradeLevel')->where('grade_level_id', $this->student->enrollment->gradelevel_id)
+        ->where('specialization_id', $this->student->enrollment->specialization_id)
+        ->where('type', 'Applied and Specialized Subjects')
+        ->where('semester_id', 1)
+        ->get();
+    $this->subjectsForSecondSemGrade11Core = Subject::with('gradeLevel')->where('grade_level_id', $this->student->enrollment->gradelevel_id)
+        ->where('specialization_id', $this->student->enrollment->specialization_id)
+        ->where('type', 'Core')
+        ->where('semester_id', 2)
+        ->get();
+    $this->subjectsForSecondSemGrade11AppliedSpecializedSubjects = Subject::with('gradeLevel')->where('grade_level_id', $this->student->enrollment->gradelevel_id)
+        ->where('specialization_id', $this->student->enrollment->specialization_id)
+        ->where('type', 'Applied and Specialized Subjects')
+        ->where('semester_id', 2)
+        ->get();
         $this->status = 0;
     }
     public function render()

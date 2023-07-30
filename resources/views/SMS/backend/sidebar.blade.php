@@ -22,10 +22,10 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link {{ Route::is('admin.academic.strand.index') ? 'active' : '' }}"
-                    href="{{ route('admin.academic.strand.index') }}">
+                <a class="nav-link {{ Route::is('admin.academic.subject.index') ? 'active' : '' }}"
+                    href="{{ route('admin.academic.subject.index') }}">
                     <i class="fa-solid icon-yellow fa-book-open"></i>
-                    <span>Academics</span>
+                    <span>Subjects</span>
                 </a>
             </li>
             <!-- End Dashboard Nav -->
@@ -37,16 +37,16 @@
                     <span>Students</span>
                 </a>
             </li>
-      
+
             <!-- End Charts Nav -->
             @if (Auth::user()->isRole('admin'))
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a class="nav-link {{ Route::is('admin.maintenance.index') ? 'active' : '' }}"
                         href="{{ route('admin.maintenance.index') }}">
                         <i class="fa-solid icon-yellow fa-gears"></i>
                         <span>Maintenance</span>
                     </a>
-                </li>
+                </li> --}}
                 <li class="nav-item">
                     <a class="nav-link {{ Route::is('admin.user.index') ? 'active' : '' }}"
                         href="{{ route('admin.user.index') }}">

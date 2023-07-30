@@ -1,13 +1,16 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\EMS;
 
+use App\Models\Subject;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Specialization extends Model
 {
     use HasFactory;
+    protected $connection = 'mysql2';
+    protected $table = 'specializations';
     protected $guarded = [];
 
     public  function strand(){
@@ -18,9 +21,7 @@ class Specialization extends Model
         return $this->hasMany(Subject::class, 'specialization_id');
     }
 
-    public function students(){
-        return $this->hasMany(Student::class, 'specialization_id');
+    public function studentEnrollments(){
+        return $this->hasMany(StudentEnrollment::class, 'specialization_id');
     }
-
-    
 }

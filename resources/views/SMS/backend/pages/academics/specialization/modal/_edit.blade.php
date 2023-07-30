@@ -14,7 +14,7 @@
                         <div class="col-12">
                             <label for="name" class="form-label fw-bold text-black">specialization Name</label>
                             <input type="text" class="form-control" id="name" name="name"
-                                value="{{ $specialization->name }}">
+                                value="{{ $specialization->specialization }}">
                             @error('name')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror

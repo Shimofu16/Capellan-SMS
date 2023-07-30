@@ -81,7 +81,7 @@
                                 @foreach ($specializations as $specialization)
                                     <option value="{{ $specialization->id }}"
                                         @if ($specialization->id == $subject->specialization_id) selected @endif>
-                                        {{ $specialization->name }}
+                                        {{ $specialization->specialization }}
                                     </option>
                                 @endforeach
                             </select>
@@ -97,7 +97,7 @@
                                 <option value="">Select semester</option>
                                 @foreach ($semesters as $semester)
                                     <option value="{{ $semester->id }}"
-                                        @if ($semester->id == $subject->semester_id) selected @endif>{{ $semester->name }}
+                                        @if ($semester->id == $subject->semester_id) selected @endif>{{ $semester->sem }}
                                     </option>
                                 @endforeach
                             </select>

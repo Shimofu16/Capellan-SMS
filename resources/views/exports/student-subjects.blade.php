@@ -9,7 +9,7 @@
         </tr>
         <tr>
             <th colspan="2" style="text-align:center;font-size: 14px;">Specialization:
-                {{ $student->specialization->name }}</th>
+                {{ $student->specialization->specialization }}</th>
         </tr>
         @if (count($subjectsCoreFirstSem) != 0)
             <tr>

@@ -71,7 +71,7 @@
             new Chart(document.querySelector(selector), {
                 type: 'pie',
                 data: {
-                    labels: data.map(d => d.name),
+                    labels: data.map(d => d.specialization),
                     datasets: [{
                         label: label,
                         data: data.map(d => d.students_count),
