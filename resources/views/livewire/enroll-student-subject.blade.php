@@ -3,17 +3,6 @@
         {{-- generate a livewire select for grade levels --}}
         <div class="col-md-3">
             <div class="mb-3">
-                <label for="gradeLevel" class="form-label">Grade Level</label>
-                <select wire:model="grade_level_id" class="form-select" aria-label="Default select example">
-                    <option selected>Open this select menu</option>
-                    @foreach ($gradeLevels as $level)
-                        <option value="{{ $level->id }}">{{ $level->name }}</option>
-                    @endforeach
-                </select>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="mb-3">
                 <label for="status" class="form-label">Status</label>
                 <select wire:model="status" class="form-select" aria-label="Default select example">
                     <option selected>Open this select menu</option>

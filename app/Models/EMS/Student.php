@@ -20,4 +20,7 @@ class Student extends Model
     {
         return $this->last_name . ', ' . $this->first_name . ' ' . $this->middle_name . ' ' . $this->extension;
     }
+    public function getAddress(){
+        return $this->house_num .' '. $this->purok.  ', ' . $this->brgy . ', ' . $this->municipality . ', ' . $this->province;
+    }
 }

@@ -27,7 +27,7 @@
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                     @foreach ($gradeLevels as $level)
                                         <li><a class="dropdown-item"
-                                                href="{{ route('admin.student.index', ['type' => 'Specialization', 'id' => $level->id]) }}">{{ $level->grade_level }}</a>
+                                                href="{{ route('admin.student.index', ['type' => 'level', 'id' => $level->id]) }}">{{ $level->grade_level }}</a>
                                         </li>
                                     @endforeach
                                 </ul>
@@ -41,7 +41,7 @@
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
                                     @forelse ($specializations as $specialization)
                                         <li><a class="dropdown-item"
-                                                href="{{ route('admin.student.index', ['type' => 'Specialization', 'id' => $specialization->id]) }}">{{ $specialization->specialization }}</a>
+                                                href="{{ route('admin.student.index', ['type' => 'specialization', 'id' => $specialization->id]) }}">{{ $specialization->specialization }}</a>
                                         </li>
                                     @empty
                                         <li><a class="dropdown-item" href="#">No Specializations</a></li>
@@ -86,7 +86,7 @@
                                         <td>{{ $student->age }}</td>
                                         <td>{{ $student->sex }}</td>
                                         <td>{{ date('F d, Y', strtotime($student->b_date)) }}</td>
-                                        <td>{{ $student->address }}</td>
+                                        <td>{{ $student->getAddress() }}</td>
                                         @if ($type != 'Grade Level')
                                         <td>{{ $student->enrollment->gradeLevel->grade_level }}</td>
                                     @endif

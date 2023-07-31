@@ -9,11 +9,11 @@
         </tr>
         <tr>
             <th colspan="2" style="text-align:center;font-size: 14px;">Specialization:
-                {{ $student->specialization->specialization }}</th>
+                {{ $student->enrollment->specialization->specialization }}</th>
         </tr>
         @if (count($subjectsCoreFirstSem) != 0)
             <tr>
-                <th colspan="2" style="text-align:center; font-size: 14px;">{{ $student->gradeLevel->name }} - First
+                <th colspan="2" style="text-align:center; font-size: 14px;">{{ $student->enrollment->gradeLevel->grade_level }} - First
                     Semester</th>
             </tr>
         @endif
@@ -67,7 +67,7 @@
     <table>
         <thead>
             <tr>
-                <th colspan="2" style="text-align: center; font-size: 14px;">{{ $student->gradeLevel->name }} -
+                <th colspan="2" style="text-align: center; font-size: 14px;">{{ $student->enrollment->gradeLevel->grade_level }} -
                     Second
                     Semester</th>
             </tr>
