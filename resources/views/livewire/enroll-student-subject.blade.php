@@ -27,7 +27,7 @@
     <div class="row">
 
         <form
-            action="{{ route('admin.student.store', ['student_id' => $student->id, 'grade_level_id' => $grade_level_id, 'status' => $status]) }}"
+            action="{{ route('admin.student.store', ['student_id' => $student->id, 'grade_level_id' => $student->enrollment->gradelevel_id, 'status' => $status]) }}"
             method="POST">
             @csrf
             <h4 class="text-center">First Semester</h4>

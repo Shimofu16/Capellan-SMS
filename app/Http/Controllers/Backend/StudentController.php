@@ -25,7 +25,7 @@ class StudentController extends Controller
         $specialization = null;
         if ($type === "Grade Level") {
             $students =  Student::with('enrollment')->whereHas('enrollment', function ($query) use ($id) {
-                $query->where('grade_level_id', $id);
+                $query->where('gradelevel_id ', $id);
             })->get();
         } else if ($type === "Specialization") {
             $students =  Student::with('enrollment')->whereHas('enrollment', function ($query) use ($id) {

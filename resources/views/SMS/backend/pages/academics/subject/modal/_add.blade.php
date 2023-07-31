@@ -61,7 +61,7 @@
                                 @foreach ($gradeLevels as $gradLevel)
                                     <option value="{{ $gradLevel->id }}"
                                         @if ($gradLevel->id == old('grade_lavel_id')) selected @endif>
-                                        {{ $gradLevel->name }}
+                                        {{ $gradLevel->grade_level }}
                                     </option>
                                 @endforeach
                             </select>
