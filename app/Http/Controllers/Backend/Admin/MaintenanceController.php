@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Billing;
+use App\Models\Fee;
 use App\Models\SchoolYear;
 use App\Models\Semester;
 use Illuminate\Http\Request;
@@ -15,10 +16,8 @@ class MaintenanceController extends Controller
      */
     public function index()
     {
-        $billing = Billing::find(1);
-        $school_years = SchoolYear::all();
-        $semesters = Semester::all();
-        return view('SMS.backend.pages.maintenance.index', compact('school_years', 'billing', 'semesters'));
+        $fees = Fee::all();
+        return view('SMS.backend.pages.maintenance.index', compact('fees', ));
     }
 
     /**
@@ -35,12 +34,7 @@ class MaintenanceController extends Controller
     public function store(Request $request)
     {
         try {
-            $school_year = SchoolYear::create([
-                'name' => date('Y', strtotime($request->start_date)) . '-' . date('Y', strtotime($request->end_date)),
-                'start_date' => date('Y-m-d', strtotime($request->start_date)),
-                'end_date' => date('Y-m-d', strtotime($request->end_date)),
-                'semester_id' => 1,
-            ]);
+          
             return redirect()->back()->with('successToast', 'School year added successfully!');
         } catch (\Throwable $th) {
             return redirect()->back()->with('errorAlert', $th->getMessage());
@@ -69,18 +63,7 @@ class MaintenanceController extends Controller
     public function update(Request $request,  $id)
     {
         try {
-            $latestActiveSy = SchoolYear::where('is_active', 1)->first();
-            if ($latestActiveSy->is_active == 1) {
-                $latestActiveSy->is_active = 0;
-                $latestActiveSy->save();
-            }
-            $school_year = SchoolYear::find($id);
-            $school_year->name = date('Y', strtotime($request->start_date)) . '-' . date('Y', strtotime($request->end_date));
-            $school_year->start_date = date('Y-m-d', strtotime($request->start_date));
-            $school_year->end_date = date('Y-m-d', strtotime($request->end_date));
-            $school_year->semester_id = $request->semester_id;
-            $school_year->is_active = $request->is_active;
-            $school_year->save();
+          
             return redirect()->back()->with('successToast', 'School year updated successfully!');
         } catch (\Throwable $th) {
             return redirect()->back()->with('errorAlert', $th->getMessage());

@@ -3,9 +3,11 @@
 use App\Http\Controllers\Admin\MaintenanceController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Backend\Admin\MaintenanceController as AdminMaintenanceController;
+use App\Http\Controllers\Backend\Admin\TeacherController;
 use App\Http\Controllers\Backend\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Frontend\Auth\LoginController;
 use App\Http\Controllers\Backend\DashboardController;
+use App\Http\Controllers\Backend\ScheduleController;
 use App\Http\Controllers\Backend\SpecializationController;
 use App\Http\Controllers\Backend\StrandController;
 use App\Http\Controllers\Backend\StudentController;
@@ -72,10 +74,24 @@ Route::middleware(['auth','alert','isUserActive'])->prefix('admin')->name('admin
         Route::get('/{type?}/{id?}', [StudentController::class, 'index'])->name('index');
         Route::post('/store/{student_id}/{grade_level_id}/{status}', [StudentController::class, 'store'])->name('store');
     });
+    Route::prefix('schedule')->name('schedule.')->controller(ScheduleController::class)->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::post('/store', 'store')->name('store');
+        Route::put('/update/{id}', 'update')->name('update');
+        Route::delete('/destroy/{id}', 'destroy')->name('destroy');
+    });
 
 
     /* Admin */
     Route::middleware(['isAdmin'])->group(function () {
+
+        Route::prefix('teacher')->name('teacher.')->controller(TeacherController::class)->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::post('/store', 'store')->name('store');
+            Route::put('/update/{id}', 'update')->name('update');
+            Route::delete('/destroy/{id}', 'destroy')->name('destroy');
+        });
+
         Route::prefix('maintenance')->name('maintenance.')->controller(AdminMaintenanceController::class)->group(function () {
             Route::get('/', 'index')->name('index');
             Route::get('/create', 'create')->name('create');
@@ -85,6 +101,7 @@ Route::middleware(['auth','alert','isUserActive'])->prefix('admin')->name('admin
             Route::put('/update/{id}', 'update')->name('update');
             Route::delete('/destroy/{id}', 'destroy')->name('destroy');
         });
+
         Route::prefix('user')->name('user.')->group(function () {
             Route::controller(AdminUserController::class)->group(function () {
                 Route::get('/', 'index')->name('index');

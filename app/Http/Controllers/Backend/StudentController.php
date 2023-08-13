@@ -12,6 +12,8 @@ use App\Models\EMS\Specialization;
 use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\StudentSubject as ExportsStudentSubject;
+use App\Http\Controllers\Backend\General\GenerateUserSession;
+use App\Models\EMS\ActiveSyandSem;
 
 class StudentController extends Controller
 {
@@ -20,7 +22,6 @@ class StudentController extends Controller
      */
     public function index($type = null, $id = null)
     {
-
         $gradeLevel = null;
         $specialization = null;
         $students = Student::all();
@@ -37,25 +38,9 @@ class StudentController extends Controller
         }
         $gradeLevels = GradeLevel::all();
         $specializations = Specialization::all();
-        return view('SMS.backend.pages.students.index', compact('students', 'gradeLevels',  'gradeLevel', 'specializations',  'specialization','type'));
+        return view('SMS.backend.pages.students.index', compact('students', 'gradeLevels',  'gradeLevel', 'specializations',  'specialization', 'type'));
     }
-    public function import(Request $request)
-    {
-        $request->validate([
-            'file' => 'required|mimes:xlsx',
-        ]);
 
-        $file = $request->file('file');
-
-        Excel::import(new StudentImport, $file);
-
-        // Add any additional logic or response you need
-
-        return redirect()->back()->with('success', 'Students imported successfully.');
-    }
-    private function export($name, $student)
-    {
-    }
 
     /**
      * Show the form for creating a new resource.
@@ -72,14 +57,24 @@ class StudentController extends Controller
     {
         try {
             // dd($request->all());
-            /* delete all  student subjects before creating new one */
-            StudentSubject::where('student_id', $student_id)->delete();
+            $active = ActiveSyandSem::first();
+            //check if there is already subjects erolled for students in current sy and semester
+            $studentSubjects = StudentSubject::where('student_id', $student_id)
+                ->where('semester_id', $active->active_sem_id)
+                ->where('sy_id', $active->active_SY_id)
+                ->get();
+            if ($studentSubjects->count() > 0) {
+                return redirect()->back()->with('errorAlert', 'Student already enrolled in this semester and school year');
+            }
+            $student = Student::findOrFail($student_id);
+
             foreach ($request->enroll_subjects as $subject_id) {
                 StudentSubject::create([
                     'student_id' => $student_id,
                     'subject_id' => $subject_id,
-                    'status' => $status
-
+                    'status' => $status,
+                    'semester_id' => $active->active_sem_id,
+                    'sy_id' => $active->active_SY_id
                 ]);
             }
             if ($request->has('completed_subjects')) {
@@ -87,14 +82,17 @@ class StudentController extends Controller
                     StudentSubject::create([
                         'student_id' => $student_id,
                         'subject_id' => $subject_id,
-                        'status' => $status
+                        'status' => $status,
+                        'semester_id' => $active->active_sem_id,
+                        'sy_id' => $active->active_SY_id
                     ]);
                 }
             }
-            $student = Student::findOrFail($student_id);
+
             $name = $student->getFullName();
             $export = new ExportsStudentSubject($student);
             $filename = $name . '.xlsx';
+            GenerateUserSession::GenerateSession('Enroll Student`s Subject', 'Enrolled Student ' . $name, auth()->user());
             return $export->download($filename);
         } catch (\Throwable $th) {
             return redirect()->back()->with('errorAlert', $th->getMessage());

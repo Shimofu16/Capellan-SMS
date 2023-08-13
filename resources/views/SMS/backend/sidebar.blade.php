@@ -32,21 +32,34 @@
             <li class="nav-item">
                 <a class="nav-link {{ Route::is('admin.student.index') ? 'active' : '' }}"
                     href="{{ route('admin.student.index') }}">
-                {{-- remix icon for students --}}
                     <i class="fa-solid icon-yellow fa-graduation-cap"></i>
                     <span>Students</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {{ Route::is('admin.schedule.index') ? 'active' : '' }}"
+                    href="{{ route('admin.schedule.index') }}">
+                    <i class="fa-regular icon-yellow fa-calendar-days"></i>
+                    <span>Schedules</span>
                 </a>
             </li>
 
             <!-- End Charts Nav -->
             @if (Auth::user()->isRole('admin'))
-                {{-- <li class="nav-item">
+                <li class="nav-item">
+                    <a class="nav-link {{ Route::is('admin.teacher.index') ? 'active' : '' }}"
+                        href="{{ route('admin.teacher.index') }}">
+                        <i class="fa-solid icon-yellow fa-chalkboard-user"></i>
+                        <span>Teachers</span>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link {{ Route::is('admin.maintenance.index') ? 'active' : '' }}"
                         href="{{ route('admin.maintenance.index') }}">
                         <i class="fa-solid icon-yellow fa-gears"></i>
                         <span>Maintenance</span>
                     </a>
-                </li> --}}
+                </li>
                 <li class="nav-item">
                     <a class="nav-link {{ Route::is('admin.user.index') ? 'active' : '' }}"
                         href="{{ route('admin.user.index') }}">

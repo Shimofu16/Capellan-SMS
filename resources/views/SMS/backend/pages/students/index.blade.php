@@ -17,8 +17,6 @@
                         <h3 class="text-dark fw-bold">@yield('page-title')
                         </h3>
                         <div class="d-flex align-items-center">
-
-                            @include('SMS.backend.pages.students.modal._add')
                             <div class="dropdown me-1">
                                 <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1"
                                     data-bs-toggle="dropdown" aria-expanded="false">
@@ -55,7 +53,7 @@
                     <div class="card-body">
 
                         <!-- Table with stripped rows -->
-                        <table class="table" id="students-table">
+                        <table class="table dataTable" id="students-table">
                             <thead>
                                 <tr>
                                     <th scope="col">Name</th>
@@ -116,12 +114,4 @@
         </div>
     </section>
 @endsection
-@section('scripts')
-    <script>
-        $(document).ready(function() {
-            $('#students-table').DataTable({
-                "ordering": false
-            });
-        });
-    </script>
-@endsection
+

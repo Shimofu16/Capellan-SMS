@@ -82,6 +82,13 @@
     {{-- sweetalert --}}
     @include('sweetalert::alert')
     @yield('scripts')
+    <script>
+        $(document).ready(function() {
+            $('.dataTable').DataTable({
+                "ordering": false
+            });
+        });
+    </script>
 </body>
 
 </html>

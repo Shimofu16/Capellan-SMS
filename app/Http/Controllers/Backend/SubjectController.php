@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\Http\Controllers\Backend\General\GenerateUserSession;
 use App\Http\Controllers\Controller;
 use App\Models\EMS\GradeLevel;
 use App\Models\EMS\Semester;
@@ -11,22 +12,23 @@ use Illuminate\Http\Request;
 
 class SubjectController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      */
     public function index($specialization_id = null)
     {
-     
+
         $specialization = null;
-        $specializations = Specialization::with('strand','subjects')->get();
-        $subjects = Subject::with('semester','specialization','gradeLevel')->get();
-           if ($specialization_id) {
-            $specialization = Specialization::with('strand','subjects')->find($specialization_id);
+        $specializations = Specialization::with('strand', 'subjects')->get();
+        $subjects = Subject::with('semester', 'specialization', 'gradeLevel')->get();
+        if ($specialization_id) {
+            $specialization = Specialization::with('strand', 'subjects')->find($specialization_id);
             $subjects = $specialization->subjects;
         }
         $semesters = Semester::all();
         $gradeLevels = GradeLevel::all();
-        return view('SMS.backend.pages.academics.subject.index', compact('specializations','specialization','subjects','semesters','gradeLevels','specialization_id'));
+        return view('SMS.backend.pages.academics.subject.index', compact('specializations', 'specialization', 'subjects', 'semesters', 'gradeLevels', 'specialization_id'));
     }
 
     /**
@@ -61,6 +63,7 @@ class SubjectController extends Controller
                 'semester_id' => $request->semester_id,
                 'specialization_id' => $request->specialization_id,
             ]);
+            GenerateUserSession::GenerateSession('Subject Management', 'Created Subject ' . $request->name, auth()->user());
             return back()->with('successToast', 'Subject successfully created!');
         } catch (\Throwable $th) {
             return back()->with('errorAlert', $th->getMessage());
@@ -99,6 +102,7 @@ class SubjectController extends Controller
                 'semester_id' => $request->semester_id,
                 'specialization_id' => $request->specialization_id,
             ]);
+            GenerateUserSession::GenerateSession('Subject Management', 'Updated Subject ' . $request->name, auth()->user());
             return back()->with('successToast', 'Subject successfully updated!');
         } catch (\Throwable $th) {
             return back()->with('errorAlert', $th->getMessage());
@@ -111,7 +115,9 @@ class SubjectController extends Controller
     public function destroy(string $id)
     {
         try {
-            Subject::find($id)->delete();
+            $subject =  Subject::find($id);
+            GenerateUserSession::GenerateSession('Subject Management', 'Deleted Subject ' . $subject->name, auth()->user());
+            $subject->delete();
             return back()->with('successToast', 'Subject successfully deleted!');
         } catch (\Throwable $th) {
             return back()->with('errorAlert', $th->getMessage());

@@ -23,7 +23,7 @@
                     <div class="card-body">
 
                         <!-- Table with stripped rows -->
-                        <table class="table" id="users-table">
+                        <table class="table dataTable" id="users-table">
                             <thead>
                                 <tr>
                                     <th scope="col">Name</th>

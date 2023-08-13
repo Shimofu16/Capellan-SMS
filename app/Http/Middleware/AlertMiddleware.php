@@ -17,8 +17,8 @@ class AlertMiddleware
     public function handle(Request $request, Closure $next): Response
     {
 
-        if ($request->session()->has('successAlert')) {
-            Alert::success('SYSTEM MESSAGE', $request->session()->get('successAlert'))
+        if ($request->session()->has('successToast')) {
+            Alert::success('SYSTEM MESSAGE', $request->session()->get('successToast'))
                 ->autoClose(5000)
                 ->animation('animate__fadeIn', 'animate__fadeOut')
                 ->timerProgressBar();

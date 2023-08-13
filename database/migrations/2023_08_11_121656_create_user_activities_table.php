@@ -11,14 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('user_action_logs', function (Blueprint $table) {
+        Schema::create('user_activities', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->string('action');
+            $table->string('type');
             $table->string('description');
-            $table->date('time_in');
-            $table->date('time_out')->nullable();
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -28,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('user_action_logs');
+        Schema::dropIfExists('user_activities');
     }
 };

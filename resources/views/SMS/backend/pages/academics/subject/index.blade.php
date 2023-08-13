@@ -52,7 +52,7 @@
                     <div class="card-body">
 
                         <!-- Table with stripped rows -->
-                        <table class="table" id="subjects-table">
+                        <table class="table dataTable" id="subjects-table">
                             <thead>
                                 <tr>
                                     <th scope="col">Code</th>
@@ -62,6 +62,7 @@
                                     @if ($specialization_id == null)
                                         <th scope="col">Specialization</th>
                                     @endif
+                                    <th scope="col">Grade Level</th>
                                     <th scope="col" class="text-center">Action</th>
                                 </tr>
                             </thead>
@@ -75,6 +76,7 @@
                                         @if ($specialization_id == null)
                                             <td>{{ $subject->specialization->specialization }}</td>
                                         @endif
+                                        <td>{{ $subject->gradeLevel->grade_level }}</td>
                                         <td class="text-center">
                                             <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal"
                                                 data-bs-target="#edit{{ $subject->id }}">
@@ -101,12 +103,4 @@
         </div>
     </section>
 @endsection
-@section('scripts')
-    <script>
-        $(document).ready(function() {
-            $('#subjects-table').DataTable({
-                "ordering": false
-            });
-        });
-    </script>
-@endsection
+

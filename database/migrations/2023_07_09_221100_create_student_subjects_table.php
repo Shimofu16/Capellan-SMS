@@ -15,11 +15,13 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('student_id');
             $table->unsignedBigInteger('subject_id');
+            $table->unsignedBigInteger('semester_id');
+            $table->unsignedBigInteger('sy_id');
             $table->string('status')->nullable();
 
             // Define foreign key constraints
-
             $table->foreign('subject_id')->references('id')->on('subjects')->onDelete('cascade');
+
             $table->timestamps();
         });
     }

@@ -54,6 +54,11 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class, 'role_id');
     }
 
+
+    public function activities()
+    {
+        return $this->hasMany(UserActivity::class,'user_id');
+    }
     public function isRole($role)
     {
         return $this->role->name === $role;
