@@ -18,11 +18,12 @@
                         <h3 class="text-maroon">Fees
                         </h3>
                         <div class="d-flex align-items-center">
-                            {{-- <button class="btn btn-outline-primary " data-bs-toggle="modal"
+                            <button class="btn btn-outline-primary " data-bs-toggle="modal"
                                 data-bs-target="#add">
                                 <i class="ri-add-line"></i>
-                                Add School Year
-                            </button> --}}
+                                Add Fee
+                            </button>
+                            @include('SMS.backend.pages.maintenance.modal._add')
                         </div>
 
                     </div>
@@ -55,7 +56,7 @@
                                             </button>
                                         </td>
                                     </tr>
-                                    {{-- @include('SMS.backend.pages.maintenance.modal._edit_school_year') --}}
+                                    @include('SMS.backend.pages.maintenance.modal._edit')
 
                                 @endforeach
                             </tbody>

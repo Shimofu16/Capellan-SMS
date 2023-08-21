@@ -1,40 +1,36 @@
 <div class="modal fade" id="add" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header bg-maroon">
-                <h5 class="modal-title text-white">Add {{ $pageTitle }}</h5>
+            <div class="modal-header bg-primary">
+                <h5 class="modal-title text-white">Add User</h5>
 
             </div>
-            @if (Route::is('admin.user.faculty.index'))
-                @php
-                    $route = route('admin.user.faculty.store');
-                @endphp
-            @endif
-            @if (Route::is('admin.user.student.index'))
-                @php
-                    $route = route('admin.user.student.store');
-                @endphp
-            @endif
-            <form action="{{ $route }}" method="POST">
+            <form action="{{ route('admin.user.store') }}" method="POST">
                 <div class="modal-body">
-                    @csrf
-                    @method('PUT')
+                    @csrf   
                     <div class="row mb-3">
-                        <label class="form-label fw-bold text-black">Select</label>
                         <div class="col-12">
-                            <select class="form-select" aria-label="Default select example">
-                                <option selected="">Open this select menu</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
-                            </select>
+                            <label for="name" class="form-label fw-bold text-black">Name</label>
+                            <input type="text" class="form-control" id="name" name="name">
+                            @error('name')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
                         </div>
                     </div>
                     <div class="row mb-3">
                         <div class="col-12">
-                            <label for="password" class="form-label fw-bold text-black">Password</label>
-                            <input type="password" class="form-control" id="password" name="password">
-                            @error('password')
+                            <label for="email" class="form-label fw-bold text-black">Email</label>
+                            <input type="email" class="form-control" id="email" name="email">
+                            @error('email')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            <label for="passwordCreate" class="form-label fw-bold text-black">Password</label>
+                            <input type="password" class="form-control" id="passwordCreate" name="passwordCreate">
+                            @error('password-c')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
                             <div class="alert alert-danger mt-2" role="alert" id="alert-password">
@@ -44,14 +40,14 @@
                     </div>
                     <div class="row mb-3">
                         <div class="col-12">
-                            <label for="password_confirmation" class="form-label fw-bold text-black">Confirm
+                            <label for="password_confirmationCreate" class="form-label fw-bold text-black">Confirm
                                 Password</label>
-                            <input type="password" class="form-control" id="password_confirmation"
-                                name="password_confirmation">
-                            @error('password_confirmation')
+                            <input type="password" class="form-control" id="password_confirmationCreate"
+                                name="password_confirmationCreate">
+                            @error('password_confirmation-c')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
-                            <div class="alert alert-danger mt-2" role="alert" id="alert-password_confirmation">
+                            <div class="alert alert-danger mt-2" role="alert" id="alert-password_confirmationCreate">
 
                             </div>
                         </div>
@@ -59,15 +55,15 @@
                     <div class="row mb-3">
                         <div class="col-12">
                             <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" id="show">
-                                <label class="form-check-label  fw-bold text-black" for="show">Show Password</label>
+                                <input class="form-check-input" type="checkbox" id="showCreate">
+                                <label class="form-check-label  fw-bold text-black" for="showCreate">Show Password</label>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" id="submit" class="btn btn-primary">Add</button>
+                    <button type="submit" id="submitCreate" class="btn btn-primary">Add</button>
                 </div>
             </form>
         </div>

@@ -34,8 +34,14 @@ class MaintenanceController extends Controller
     public function store(Request $request)
     {
         try {
-          
-            return redirect()->back()->with('successToast', 'School year added successfully!');
+            if ($request->isActive == 1) {
+                Fee::where('is_active', 1)->update(['is_active' => 0]);
+            }
+            Fee::create([
+                'fee' => $request->fee,
+                'is_active' => $request->isActive,
+            ]);
+            return redirect()->back()->with('successToast', 'Fee added successfully!');
         } catch (\Throwable $th) {
             return redirect()->back()->with('errorAlert', $th->getMessage());
         }
@@ -63,8 +69,15 @@ class MaintenanceController extends Controller
     public function update(Request $request,  $id)
     {
         try {
-          
-            return redirect()->back()->with('successToast', 'School year updated successfully!');
+            $fee = Fee::find($id);
+            if ($request->isActive == 1) {
+                Fee::where('is_active', 1)->update(['is_active' => 0]);
+            }
+            $fee->update([
+                'fee' => $request->fee,
+                'is_active' => $request->isActive,
+            ]);
+            return redirect()->back()->with('successToast', 'Fee updated successfully!');
         } catch (\Throwable $th) {
             return redirect()->back()->with('errorAlert', $th->getMessage());
         }

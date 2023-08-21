@@ -1,7 +1,7 @@
 <div class="modal fade" id="logs{{ $user->id }}" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header bg-maroon">
+            <div class="modal-header bg-info">
                 <h5 class="modal-title text-white">
                     @if (Route::is('admin.user.faculty.index'))
                         {{ $user->facultyMember->getFullName() }}`s
@@ -40,7 +40,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <a href="{{ route('admin.user.show', ['id' => $user->id]) }}" class="btn btn-primary">View All</a>
+                <a href="{{ route('admin.user.show', ['id' => $user->id]) }}" class="btn btn-info">View All</a>
             </div>
         </div>
     </div>

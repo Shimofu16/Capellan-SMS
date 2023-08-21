@@ -58,12 +58,4 @@
         </div>
     </section>
 @endsection
-@section('scripts')
-    <script>
-        $(document).ready(function() {
-            $('#users-table').DataTable({
-                "ordering": false
-            });
-        });
-    </script>
-@endsection
+

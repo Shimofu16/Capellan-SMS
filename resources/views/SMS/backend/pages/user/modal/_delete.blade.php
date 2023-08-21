@@ -12,7 +12,7 @@
                 <form action="{{ route('admin.user.destroy', ['id' => $user->id]) }}" method="POST">
                     @csrf
                     @method('DELETE')
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                     <button type="submit" class="btn btn-danger">Yes</button>
                 </form>
             </div>

@@ -16,7 +16,7 @@
                         <div class="d-flex align-items-center">
                             <button class="btn btn-outline-primary me-1" data-bs-toggle="modal" data-bs-target="#add">Add
                                 Account</button>
-
+                                @include('SMS.backend.pages.user.modal._add')
                         </div>
 
                     </div>
@@ -59,7 +59,7 @@
                                             <button class="btn btn-link text-info" type="button" data-bs-toggle="modal"
                                                 data-bs-target="#logs{{ $user->id }}" data-bs-toggle="tooltip"
                                                 data-bs-placement="top" title="View logs.">
-                                                <i class="ri-eye-line text-info" aria-hidden="true"></i>
+                                                <i class="fa-solid fa-eye"></i>
                                             </button>
                                             @include('SMS.backend.pages.user.modal._logs')
                                         </td>
@@ -97,106 +97,99 @@
     </section>
 @endsection
 @section('scripts')
-    <script>
-        $(document).ready(function() {
-            $('#users-table').DataTable({
-                "ordering": false
-            });
-        });
-    </script>
     {{-- generate a jquery code for showing and hiding password --}}
     <script>
         $(document).ready(function() {
-            $('#alert-password').hide();
-            $('#alert-password_confirmation').hide();
-            $('#show').click(function() {
+            $('#alert-passwordUpdate').hide();
+            $('#alert-password_confirmationUpdate').hide();
+            $('#showUpdate').click(function() {
                 if ($(this).is(':checked')) {
-                    $('#password').attr('type', 'text');
-                    $('#password_confirmation').attr('type', 'text');
+                    $('#passwordUpdate').attr('type', 'text');
+                    $('#password_confirmationUpdate').attr('type', 'text');
                     console.log('checked')
                 } else {
-                    $('#password').attr('type', 'password');
-                    $('#password_confirmation').attr('type', 'password');
+                    $('#passwordUpdate').attr('type', 'password');
+                    $('#password_confirmationUpdate').attr('type', 'password');
                     console.log('uncheked')
                 }
             });
             /* check also if the password is 8 characters */
-            $('#password').keyup(function() {
-                if ($('#password').val()
+            $('#passwordUpdate').keyup(function() {
+                if ($('#passwordUpdate').val()
                     .length >= 8) {
-                    $('#password').css('border', '1px solid green');
-                    $('#alert-password').hide();
-                    $('#submit').prop('disabled', false);
+                    $('#passwordUpdate').css('border', '1px solid green');
+                    $('#alert-passwordUpdate').hide();
+                    $('#submitUpdate').prop('disabled', false);
                 } else {
-                    $('#password').css('border', '1px solid red');
-                    $('#alert-password').show();
-                    $('#alert-password').text('Password must be 8 characters');
-                    $('#submit').prop('disabled', true);
+                    $('#passwordUpdate').css('border', '1px solid red');
+                    $('#alert-passwordUpdate').show();
+                    $('#alert-passwordUpdate').text('Password must be 8 characters');
+                    $('#submitUpdate').prop('disabled', true);
                 }
             });
             /* check if the password and confirm password are the same */
-            $('#password_confirmation').keyup(function() {
-                if ($('#password').val() == $('#password_confirmation').val()) {
-                    $('#password_confirmation').css('border', '1px solid green');
-                    $('#alert-password_confirmation').hide();
-                    if ($('#password').val()
+            $('#password_confirmationUpdate').keyup(function() {
+                if ($('#passwordUpdate').val() == $('#password_confirmationUpdate').val()) {
+                    $('#password_confirmationUpdate').css('border', '1px solid green');
+                    $('#alert-password_confirmationUpdate').hide();
+                    if ($('#passwordUpdate').val()
                         .length >= 8) {
-                        $('#submit').prop('disabled', false);
+                        $('#submitUpdate').prop('disabled', false);
                     }
                 } else {
-                    $('#password_confirmation').css('border', '1px solid red');
-                    $('#alert-password_confirmation').show();
-                    $('#alert-password_confirmation').text(
+                    $('#password_confirmationUpdate').css('border', '1px solid red');
+                    $('#alert-password_confirmationUpdate').show();
+                    $('#alert-password_confirmationUpdate').text(
                         'Password and Confirm Password must be the same');
-                    $('#submit').prop('disabled', true);
+                    $('#submitUpdate').prop('disabled', true);
                 }
             });
         });
     </script>
     <script>
         $(document).ready(function() {
-            $('#alert-password-e').hide();
-            $('#alert-password_confirmation-e').hide();
-            $('#show-e').click(function() {
+            $('#alert-passwordCreate').hide();
+            $('#alert-password_confirmationCreate').hide();
+            $('#showCreate').click(function() {
                 if ($(this).is(':checked')) {
-                    $('#password-e').attr('type', 'text');
-                    $('#password_confirmation-e').attr('type', 'text');
+                    $('#passwordCreate').attr('type', 'text');
+                    $('#password_confirmationCreate').attr('type', 'text');
                     console.log('checked')
                 } else {
-                    $('#password-e').attr('type', 'password');
-                    $('#password_confirmation-e').attr('type', 'password');
+                    $('#passwordCreate').attr('type', 'password');
+                    $('#password_confirmationCreate').attr('type', 'password');
                     console.log('uncheked')
                 }
             });
             /* check also if the password is 8 characters */
-            $('#password-e').keyup(function() {
-                if ($('#password-e').val()
+            $('#passwordCreate').keyup(function() {
+                if ($('#passwordCreate').val()
                     .length >= 8) {
-                    $('#password-e').css('border', '1px solid green');
-                    $('#alert-password-e').hide();
-                    $('#submit-e').prop('disabled', false);
+                    $('#passwordCreate').css('border', '1px solid green');
+                    $('#alert-passwordCreate').hide();
+                    $('#submitCreate').prop('disabled', false);
                 } else {
-                    $('#password-e').css('border', '1px solid red');
-                    $('#alert-password-e').show();
-                    $('#alert-password-e').text('Password must be 8 characters');
-                    $('#submit-e').prop('disabled', true);
+                    $('#passwordCreate').css('border', '1px solid red');
+                    $('#alert-passwordCreate').show();
+                    $('#alert-passwordCreate').text('Password must be 8 characters');
+                    $('#submitCreate').prop('disabled', true);
                 }
             });
             /* check if the password and confirm password are the same */
-            $('#password_confirmation-e').keyup(function() {
-                if ($('#password-e').val() == $('#password_confirmation-e').val()) {
-                    $('#password_confirmation-e').css('border', '1px solid green');
-                    $('#alert-password_confirmation-e').hide();
-                    if ($('#password-e').val()
+            $('#password_confirmationCreate').keyup(function() {
+                if ($('#passwordCreate').val() == $('#password_confirmationCreate').val()) {
+                    $('#password_confirmationCreate').css('border', '1px solid green');
+                    $('#alert-password_confirmationCreate').hide();
+                    if ($('#passwordCreate').val()
                         .length >= 8) {
-                        $('#submit-e').prop('disabled', false);
+                        $('#submitCreate').prop('disabled', false);
                     }
                 } else {
-                    $('#password_confirmation-e').css('border', '1px solid red');
-                    $('#alert-password_confirmation-e').show();
-                    $('#alert-password_confirmation-e').text(
+                    $('#password_confirmationCreate').css('border', '1px solid red');
+                    $('#alert-password_confirmationCreate').show();
+                    $('#alert-password_confirmationCreate').text(
                         'Password and Confirm Password must be the same');
-                    $('#submit-e').prop('disabled', true);
+                    $('#submitCreate').prop('disabled', true);
                 }
             });
         });

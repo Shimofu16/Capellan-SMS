@@ -1,16 +1,16 @@
 <div class="modal fade" id="add" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header bg-maroon">
-                <h5 class="modal-title text-white">Add Specialization</h5>
+            <div class="modal-header bg-primary">
+                <h5 class="modal-title text-white">Add Class Programm</h5>
 
             </div>
-            <form action="{{ route('admin.academic.specialization.store') }}" method="POST">
+            <form action="{{ route('admin.schedule.store') }}" method="POST" enctype="multipart/form-data">
                 <div class="modal-body">
                     @csrf
                     <div class="row mb-3">
                         <div class="col-12">
-                            <label for="name" class="form-label fw-bold text-black">Specialization Name</label>
+                            <label for="name" class="form-label fw-bold text-black">Name</label>
                             <input type="text" class="form-control" id="name" name="name"
                                 value="{{ old('name') }}">
                             @error('name')
@@ -18,19 +18,23 @@
                             @enderror
                         </div>
                     </div>
-                    
                     <div class="row mb-3">
                         <div class="col-12">
-                            <label for="strand_id" class="form-label fw-bold text-black">Strand</label>
-                            <select name="strand_id" id="strand_id" class="form-select">
-                                <option value="">Select Strand</option>
-                                @foreach ($strands as $strand)
-                                    <option value="{{ $strand->id }}">{{ $strand->name }}</option>
-                                @endforeach
-                            </select>
-                            @error('strand_id')
+                            <label for="description" class="form-label fw-bold text-black">Description</label>
+                            <input type="text" class="form-control" id="description" name="description"
+                                value="{{ old('description') }}">
+                            @error('description')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            <label for="image" class="form-label fw-bold text-black">Image</label>
+                            <input type="file" class="form-control" id="image" name="image"
+                                value="{{ old('image') }}">
+
                         </div>
                     </div>
                 </div>

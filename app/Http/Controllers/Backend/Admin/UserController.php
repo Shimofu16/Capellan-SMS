@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -30,7 +31,23 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $request->validate([
+                'name' => 'required',
+                'email' => 'required|unique:users',
+                'passwordCreate' => 'required|min:8',
+                'password_confirmationCreate' => 'required|same:passwordCreate',
+            ]);
+            User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'role_id' => 2,
+                'password' => Hash::make($request->input('passwordCreate')),
+            ]);
+            return back()->with('successToast', 'Successfully added new user');
+        } catch (\Throwable $th) {
+            return back()->with('errorAlert', $th->getMessage());
+        }
     }
 
     /**
@@ -59,7 +76,19 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'passwordUpdate' => 'required|min:8',
+            'password_confirmationUpdate' => 'required|same:passwordUpdate',
+        ]);
+        try {
+            $user = User::findOrFail($id);
+            $user->update([
+                'password' => Hash::make($request->input('passwordUpdate')),
+            ]);
+            return back()->with('successToast', 'Successfully updated user password');
+        } catch (\Throwable $th) {
+            return back()->with('errorAlert', $th->getMessage());
+        }
     }
 
     /**

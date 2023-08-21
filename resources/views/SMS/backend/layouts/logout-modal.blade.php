@@ -1,7 +1,7 @@
 <div class="modal fade" id="logout" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header bg-maroon">
+            <div class="modal-header bg-primary">
                 <h5 class="modal-title text-white">Logout</h5>
 
             </div>

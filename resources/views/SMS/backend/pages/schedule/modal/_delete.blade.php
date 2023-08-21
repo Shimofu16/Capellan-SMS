@@ -1,4 +1,4 @@
-<div class="modal fade" id="delete{{ $specialization->id }}" tabindex="-1">
+<div class="modal fade" id="delete{{ $schedule->id }}" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header bg-danger">
@@ -9,7 +9,7 @@
                 <p>Are you sure you want to delete this data?</p>
             </div>
             <div class="modal-footer">
-                <form action="{{ route('admin.academic.specialization.destroy', ['id' => $specialization->id]) }}" method="POST">
+                <form action="{{ route('admin.schedule.destroy', ['id' => $schedule->id]) }}" method="POST">
                     @csrf
                     @method('DELETE')
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>

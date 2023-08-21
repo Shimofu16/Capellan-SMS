@@ -12,6 +12,7 @@ use App\Http\Controllers\Backend\SpecializationController;
 use App\Http\Controllers\Backend\StrandController;
 use App\Http\Controllers\Backend\StudentController;
 use App\Http\Controllers\Backend\SubjectController;
+use App\Http\Controllers\Backend\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -109,10 +110,16 @@ Route::middleware(['auth','alert','isUserActive'])->prefix('admin')->name('admin
                 Route::post('/store', 'store')->name('store');
                 Route::get('/show/{id}', 'show')->name('show');
                 Route::get('/edit/{id}', 'edit')->name('edit');
-                Route::post('/update/{id}', 'update')->name('update');
+                Route::put('/update/{id}', 'update')->name('update');
                 Route::delete('/destroy/{id}', 'destroy')->name('destroy');
             });
 
+        });
+    });
+    Route::prefix('profile')->name('profile.')->controller(ProfileController::class)->group(function () {
+        Route::prefix('change-password')->name('change-password.')->group(function () {
+            Route::get('/', 'changePassword')->name('index');
+            Route::put('/update', 'updatePassword')->name('update');
         });
     });
 });

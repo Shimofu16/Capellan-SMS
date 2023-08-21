@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Schedule;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ScheduleController extends Controller
 {
@@ -12,7 +14,8 @@ class ScheduleController extends Controller
      */
     public function index()
     {
-        //
+        $schedules = Schedule::all();
+        return view('SMS.backend.pages.schedule.index', compact('schedules'));
     }
 
     /**
@@ -28,7 +31,26 @@ class ScheduleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $request->validate([
+                'name' => 'required',
+                'image' => 'required|image',
+                'description' => 'required',
+            ]);
+            $path = 'uploads/schedules/';
+            $image = $request->image;
+            $extension = $request->image->extension();
+            $file_name = uniqid() . '_' . $request->name . '.' . $extension;
+            $image->storeAs($path, $file_name);
+            Schedule::create([
+                'name' => $request->name,
+                'image_url' => $path.$file_name,
+                'description' => $request->description,
+            ]);
+            return redirect()->back()->with('successToast', 'Schedule created successfully');
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('errorAlert', $th->getMessage());
+        }
     }
 
     /**
@@ -52,7 +74,31 @@ class ScheduleController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        try {
+            $request->validate([
+                'name' => 'required',
+                'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
+                'description' => 'required',
+            ]);
+            $path = 'uploads/schedules/';
+            $image = $request->image;
+            $extension = $request->image->extension();
+            $file_name = uniqid() . '_' . $request->name . '.' . $extension;
+            $image->storeAs($path, $file_name);
+            $schedule = Schedule::findOrFail($id);
+            if (Storage::exists($schedule->image_url)) {
+                // delete image
+                Storage::delete($schedule->image_url);
+            }
+            $schedule->update([
+                'name' => $request->name,
+                'image_url' => $path.$file_name,
+                'description' => $request->description,
+            ]);
+            return redirect()->back()->with('successToast', 'Schedule updated successfully');
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('errorAlert', $th->getMessage());
+        }
     }
 
     /**
@@ -60,6 +106,12 @@ class ScheduleController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            $schedule = Schedule::findOrFail($id);
+            $schedule->delete();
+            return redirect()->back()->with('successToast', 'Schedule deleted successfully');
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('errorAlert', $th->getMessage());
+        }
     }
 }
