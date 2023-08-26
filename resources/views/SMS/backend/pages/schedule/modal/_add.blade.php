@@ -2,7 +2,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header bg-primary">
-                <h5 class="modal-title text-white">Add Class Programm</h5>
+                <h5 class="modal-title text-white">Add @yield('page-title')</h5>
 
             </div>
             <form action="{{ route('admin.schedule.store') }}" method="POST" enctype="multipart/form-data">
@@ -20,14 +20,33 @@
                     </div>
                     <div class="row mb-3">
                         <div class="col-12">
-                            <label for="description" class="form-label fw-bold text-black">Description</label>
-                            <input type="text" class="form-control" id="description" name="description"
-                                value="{{ old('description') }}">
-                            @error('description')
+                            <label for="teacher_id" class="form-label fw-bold text-black">Teacher</label>
+                            <select class="form-select" name="teacher_id" id="teacher_id">
+                                <option value="">Select a teacher</option>
+                                @foreach ($teachers as $teacher)
+                                    <option value="{{ $teacher->id }}">{{ $teacher->name }}</option>
+                                @endforeach
+                            </select>
+                            @error('teacher_id')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
                     </div>
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            <label for="specialization_id" class="form-label fw-bold text-black">Specialization</label>
+                            <select class="form-select" name="specialization_id" id="specialization_id">
+                                <option value="">Select a specialization</option>
+                                @foreach ($specializations as $specialization)
+                                    <option value="{{ $specialization->id }}">{{ $specialization->specialization }}</option>
+                                @endforeach
+                            </select>
+                            @error('specialization_id')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+
 
                     <div class="row mb-3">
                         <div class="col-12">

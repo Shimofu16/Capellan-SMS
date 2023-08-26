@@ -22,10 +22,28 @@
                     </div>
                     <div class="row mb-3">
                         <div class="col-12">
-                            <label for="description" class="form-label fw-bold text-black">Description</label>
-                            <input type="text" class="form-control" id="description" name="description"
-                                value="{{ $schedule->description }}">
-                            @error('description')
+                            <label for="teacher_id" class="form-label fw-bold text-black">Teacher</label>
+                            <select class="form-select" name="teacher_id" id="teacher_id">
+                                <option value="">Select a teacher</option>
+                                @foreach ($teachers as $teacher)
+                                    <option value="{{ $teacher->id }}" {{  ($schedule->teacher_id == $teacher->id) ? 'selected' : '' ; }}>{{ $teacher->name }}</option>
+                                @endforeach
+                            </select>
+                            @error('teacher_id')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            <label for="specialization_id" class="form-label fw-bold text-black">Specialization</label>
+                            <select class="form-select" name="specialization_id" id="specialization_id">
+                                <option value="">Select a specialization</option>
+                                @foreach ($specializations as $specialization)
+                                    <option value="{{ $specialization->id }}" {{  ($schedule->specialization_id == $specialization->id) ? 'selected' : '' ; }}>{{ $specialization->specialization }}</option>
+                                @endforeach
+                            </select>
+                            @error('specialization_id')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>

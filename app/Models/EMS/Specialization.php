@@ -24,4 +24,9 @@ class Specialization extends Model
     public function studentEnrollments(){
         return $this->hasMany(StudentEnrollment::class, 'specialization_id');
     }
+
+    public function schedules()
+    {
+        return $this->hasMany(Schedule::class, 'sy_id');
+    }
 }

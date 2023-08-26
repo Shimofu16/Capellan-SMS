@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Backend\Admin;
 
+use App\Http\Controllers\Backend\General\GenerateUserSession;
 use App\Http\Controllers\Controller;
 use App\Models\Billing;
 use App\Models\Fee;
@@ -41,6 +42,7 @@ class MaintenanceController extends Controller
                 'fee' => $request->fee,
                 'is_active' => $request->isActive,
             ]);
+            GenerateUserSession::GenerateSession('Fee Management', 'Added fee ' . $request->fee ,auth()->user());
             return redirect()->back()->with('successToast', 'Fee added successfully!');
         } catch (\Throwable $th) {
             return redirect()->back()->with('errorAlert', $th->getMessage());
@@ -77,6 +79,7 @@ class MaintenanceController extends Controller
                 'fee' => $request->fee,
                 'is_active' => $request->isActive,
             ]);
+            GenerateUserSession::GenerateSession('Fee Management', 'Updated fee ' . $fee->fee . ' to ' . $request->fee ,auth()->user());
             return redirect()->back()->with('successToast', 'Fee updated successfully!');
         } catch (\Throwable $th) {
             return redirect()->back()->with('errorAlert', $th->getMessage());

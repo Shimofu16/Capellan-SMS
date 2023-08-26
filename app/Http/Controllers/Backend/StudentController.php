@@ -14,6 +14,8 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\StudentSubject as ExportsStudentSubject;
 use App\Http\Controllers\Backend\General\GenerateUserSession;
 use App\Models\EMS\ActiveSyandSem;
+use App\Models\EMS\Semester;
+use App\Models\Subject;
 
 class StudentController extends Controller
 {
@@ -67,7 +69,9 @@ class StudentController extends Controller
                 return redirect()->back()->with('errorAlert', 'Student already enrolled in this semester and school year');
             }
             $student = Student::findOrFail($student_id);
-
+            $specialization = $student->enrollment->specialization;
+            $gradeLevel = $student->enrollment->gradeLevel;
+            $subjects = [];
             foreach ($request->enroll_subjects as $subject_id) {
                 StudentSubject::create([
                     'student_id' => $student_id,
@@ -76,6 +80,7 @@ class StudentController extends Controller
                     'semester_id' => $active->active_sem_id,
                     'sy_id' => $active->active_SY_id
                 ]);
+                $subjects[] = ['id' => $subject_id];
             }
             if ($request->has('completed_subjects')) {
                 foreach ($request->completed_subjects as $subject_id) {
@@ -87,13 +92,29 @@ class StudentController extends Controller
                         'sy_id' => $active->active_SY_id
                     ]);
                 }
+                $subjects[] = ['id' => $subject_id];
             }
+            $coreSubjects = Subject::where('type', 'Core')
+                ->where('grade_level_id', $gradeLevel->id)
+                ->where('specialization_id', $specialization->id)
+                ->whereIn('id', $subjects)
+                ->get();
 
+            $appliedSubjects = Subject::where('type', 'Applied and Specialized Subjects')
+                ->where('grade_level_id', $gradeLevel->id)
+                ->where('specialization_id', $specialization->id)
+                ->whereIn('id', $subjects)
+                ->get();
+
+
+
+
+            $semester =  (Semester::find($active->active_sem_id)->sem == 1) ? 'First ' : 'Second ';
+            $semester = $semester . 'Semester';
             $name = $student->getFullName();
-            $export = new ExportsStudentSubject($student);
-            $filename = $name . '.xlsx';
+            // $filename = $name . '.xlsx';
             GenerateUserSession::GenerateSession('Enroll Student`s Subject', 'Enrolled Student ' . $name, auth()->user());
-            return $export->download($filename);
+            return view('SMS.exports.subjects', compact('student', 'specialization', 'gradeLevel', 'semester', 'coreSubjects', 'appliedSubjects'));
         } catch (\Throwable $th) {
             return redirect()->back()->with('errorAlert', $th->getMessage());
         }

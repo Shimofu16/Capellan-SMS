@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Backend\Admin;
 
+use App\Http\Controllers\Backend\General\GenerateUserSession;
 use App\Http\Controllers\Controller;
 use App\Models\Teacher;
 use Illuminate\Http\Request;
@@ -38,6 +39,7 @@ class TeacherController extends Controller
                 'contact' => $request->contact,
                 'email' => $request->email,
             ]);
+            GenerateUserSession::GenerateSession('Teacher Management', 'Added '.$request->name, auth()->user());
             return redirect()->back()->with('successToast', 'Teacher Added Successfully');
         } catch (\Throwable $th) {
             return redirect()->back()->with('errorAlert', $th->getMessage());
@@ -74,6 +76,7 @@ class TeacherController extends Controller
                 'contact' => $request->contact,
                 'email' => $request->email,
             ]);
+            GenerateUserSession::GenerateSession('Teacher Management', 'Updated '.$teacher->name, auth()->user());
             return redirect()->back()->with('successToast', 'Teacher Updated Successfully');
         } catch (\Throwable $th) {
             return redirect()->back()->with('errorAlert', $th->getMessage());
@@ -90,6 +93,7 @@ class TeacherController extends Controller
             $teacher->update([
                 'isResigned' => 1,
             ]);
+            GenerateUserSession::GenerateSession('Teacher Management', 'Resigned '.$teacher->name, auth()->user());
             return redirect()->back()->with('successToast', 'Teacher Resigned Successfully');
         } catch (\Throwable $th) {
             return redirect()->back()->with('errorAlert', $th->getMessage());

@@ -1,7 +1,7 @@
 @extends('SMS.backend.sidebar')
 
 @section('page-title')
-    CLass Programs
+    Class Schedules
 @endsection
 
 @section('contents')
@@ -15,7 +15,7 @@
                         </h3>
                         <div>
                             <button class="btn btn-outline-primary" type="button" data-bs-toggle="modal" data-bs-target="#add">
-                                Add Class Program
+                                Add Class Schedule
                             </button>
                             @include('SMS.backend.pages.schedule.modal._add')
                         </div>
@@ -28,6 +28,8 @@
                                 <tr>
                                     <th scope="col">#</th>
                                     <th scope="col">Name</th>
+                                    <th scope="col">Teacher</th>
+                                    <th scope="col">Specialization</th>
                                     <th scope="col">Image</th>
                                     <th scope="col" class="text-center">Action</th>
                                 </tr>
@@ -37,6 +39,8 @@
                                     <tr>
                                         <td>{{ $loop->index + 1 }}</td>
                                         <td>{{ $schedule->name }}</td>
+                                        <td>{{ $schedule->teacher->name }}</td>
+                                        <td>{{ $schedule->specialization->specialization }}</td>
 
                                         <td>
                                             <button class="btn btn-outline-info btn-sm" type="button"

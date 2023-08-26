@@ -14,8 +14,12 @@ return new class extends Migration
         Schema::create('schedules', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('description');
             $table->string('image_url');
+            $table->unsignedBigInteger('teacher_id');
+            $table->foreign('teacher_id')->references('id')->on('teachers');
+            $table->unsignedBigInteger('specialization_id');
+            $table->unsignedBigInteger('sy_id');
+
             $table->timestamps();
         });
     }

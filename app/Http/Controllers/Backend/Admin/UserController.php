@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Backend\Admin;
 
+use App\Http\Controllers\Backend\General\GenerateUserSession;
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Generator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -44,6 +46,7 @@ class UserController extends Controller
                 'role_id' => 2,
                 'password' => Hash::make($request->input('passwordCreate')),
             ]);
+            GenerateUserSession::GenerateSession('User Management','Added new user '.$request->name,auth()->user());
             return back()->with('successToast', 'Successfully added new user');
         } catch (\Throwable $th) {
             return back()->with('errorAlert', $th->getMessage());
@@ -85,6 +88,7 @@ class UserController extends Controller
             $user->update([
                 'password' => Hash::make($request->input('passwordUpdate')),
             ]);
+            GenerateUserSession::GenerateSession('User Management','Updated user '.$user->name,auth()->user());
             return back()->with('successToast', 'Successfully updated user password');
         } catch (\Throwable $th) {
             return back()->with('errorAlert', $th->getMessage());
@@ -99,6 +103,7 @@ class UserController extends Controller
         try {
             $user = User::findOrFail($id);
             $user->update(['status' => 'offline']);
+            GenerateUserSession::GenerateSession('User Management','Logged out user '.$user->name,auth()->user());
             return back()->with('successToast', 'Successfully logged out user');
         } catch (\Throwable $th) {
             return back()->with('errorAlert', $th->getMessage());

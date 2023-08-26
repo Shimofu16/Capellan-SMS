@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\Http\Controllers\Backend\General\GenerateUserSession;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -27,6 +28,7 @@ class ProfileController extends Controller
                         $request->new_password
                     )
                 ]);
+                GenerateUserSession::GenerateSession('Account Management','Change Password',Auth::user());
                 return redirect()->back()->with('successToast', 'Password updated successfully.');
             } else {
                 return redirect()->back()->with('infoAlert', 'The old password you entered does not match our records. Please try again with the correct old password.');
