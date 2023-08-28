@@ -26,15 +26,18 @@ class StudentController extends Controller
     {
         $gradeLevel = null;
         $specialization = null;
+        $sy_id = session()->get('sy_id');
         $students = Student::all();
         if ($type === "level") {
-            $students =  Student::with('enrollment')->whereHas('enrollment', function ($query) use ($id) {
+            $students =  Student::with('enrollment')->whereHas('enrollment', function ($query) use ($id, $sy_id) {
                 $query->where('gradelevel_id', $id);
+                $query->where('school_year_id', $sy_id);
             })->get();
             $gradeLevel = GradeLevel::find($id);
         } else if ($type === "specialization") {
-            $students =  Student::with('enrollment')->whereHas('enrollment', function ($query) use ($id) {
+            $students =  Student::with('enrollment')->whereHas('enrollment', function ($query) use ($id, $sy_id) {
                 $query->where('specialization_id', $id);
+                $query->where('school_year_id', $sy_id);
             })->get();
             $specialization = Specialization::find($id);
         }

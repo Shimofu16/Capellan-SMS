@@ -13,6 +13,7 @@ use App\Http\Controllers\Backend\StrandController;
 use App\Http\Controllers\Backend\StudentController;
 use App\Http\Controllers\Backend\SubjectController;
 use App\Http\Controllers\Backend\ProfileController;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,9 +31,9 @@ use Illuminate\Support\Facades\Route;
 Route::controller(LoginController::class)->group(function () {
     Route::get('/', 'index')->name('auth.index');
     Route::post('/login', 'login')->name('auth.store');
-    Route::post('/logout',  'logout')->name('auth.delete')->middleware(['auth','isUserActive']);
+    Route::post('/logout',  'logout')->name('auth.delete')->middleware(['auth', 'isUserActive']);
 });
-Route::middleware(['auth','alert','isUserActive'])->prefix('admin')->name('admin.')->group(function () {
+Route::middleware(['auth', 'alert', 'isUserActive'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
     Route::prefix('academics')->name('academic.')->group(function () {
@@ -81,8 +82,14 @@ Route::middleware(['auth','alert','isUserActive'])->prefix('admin')->name('admin
         Route::put('/update/{id}', 'update')->name('update');
         Route::delete('/destroy/{id}', 'destroy')->name('destroy');
     });
-
-
+    Route::prefix('switch')->name('switch.')->group(function () {
+        Route::get('/sy/{id}', function ($id) {
+            $sy = \App\Models\EMS\SchoolYear::find($id);
+            // update the sy_id in session
+            Request::session()->put('sy_id', $sy->id);
+            return redirect()->back();
+        })->name('sy');
+    });
     /* Admin */
     Route::middleware(['isAdmin'])->group(function () {
 
@@ -113,7 +120,6 @@ Route::middleware(['auth','alert','isUserActive'])->prefix('admin')->name('admin
                 Route::put('/update/{id}', 'update')->name('update');
                 Route::delete('/destroy/{id}', 'destroy')->name('destroy');
             });
-
         });
     });
     Route::prefix('profile')->name('profile.')->controller(ProfileController::class)->group(function () {

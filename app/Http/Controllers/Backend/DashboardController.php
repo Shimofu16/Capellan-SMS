@@ -15,8 +15,12 @@ class DashboardController extends Controller
      */
     public function index()
     {
+        $sy_id = session()->get('sy_id');
         $getTotalPerSpecialization = Specialization::select('id', 'specialization')
         ->withCount('studentEnrollments as students_count')
+        ->whereHas('studentEnrollments', function ($query) use ($sy_id) {
+            $query->where('school_year_id', $sy_id);
+        })
         ->get();
         $studentsCount = Student::count();
         $teachersCount = Teacher::count();

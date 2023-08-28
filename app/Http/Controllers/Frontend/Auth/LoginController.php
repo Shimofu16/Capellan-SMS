@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Frontend\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\EMS\ActiveSyandSem;
+use App\Models\EMS\SchoolYear;
 use App\Models\Log;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -22,6 +24,12 @@ class LoginController extends Controller
         if (Auth::attempt(['email' => $credentials['email'], 'password' => $credentials['password']])) {
             Auth::user()->status = "online";
             Auth::user()->save();
+            // get school year id
+            $sy_id = ActiveSyandSem::find(1)->active_SY_id;
+            // store school year id in session
+            $request->session()->put('sy_id', $sy_id);
+
+
             Log::create([
                 'user_id' => Auth::id(),
                 'time_in' => now(),
