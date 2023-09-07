@@ -61,7 +61,7 @@
                     <div class="card-body">
                         <h5 class="card-title text-center">Enrolled Students</h5>
 
-                        <div class="d-flex align-items-center">
+                        <div class="d-flex align-items-center justify-content-center">
                             <!-- Pie Chart -->
                             @if (count($getTotalPerSpecialization) == 0)
                                 <div class="alert alert-danger text-center">

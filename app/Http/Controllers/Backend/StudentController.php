@@ -24,27 +24,44 @@ class StudentController extends Controller
      */
     public function index($type = null, $id = null)
     {
+        // Initialize variables for grade level, specialization, and school year ID.
         $gradeLevel = null;
         $specialization = null;
         $sy_id = session()->get('sy_id');
-        $students = Student::all();
+
+        // Start building a query to fetch students with their enrollments for the current school year.
+        $students =  Student::query()->with('enrollment')->whereHas('enrollment', function ($query) use ($sy_id) {
+            $query->where('school_year_id', $sy_id);
+        });
+
+        // Check the value of $type to determine the filtering criteria.
         if ($type === "level") {
-            $students =  Student::with('enrollment')->whereHas('enrollment', function ($query) use ($id, $sy_id) {
+            // If filtering by grade level, add a condition to filter students by the provided grade level ID.
+            $students->whereHas('enrollment', function ($query) use ($id) {
                 $query->where('gradelevel_id', $id);
-                $query->where('school_year_id', $sy_id);
-            })->get();
+            });
+            // Find the corresponding grade level record.
             $gradeLevel = GradeLevel::find($id);
         } else if ($type === "specialization") {
-            $students =  Student::with('enrollment')->whereHas('enrollment', function ($query) use ($id, $sy_id) {
+            // If filtering by specialization, add a condition to filter students by the provided specialization ID.
+            $students->whereHas('enrollment', function ($query) use ($id) {
                 $query->where('specialization_id', $id);
-                $query->where('school_year_id', $sy_id);
-            })->get();
+            });
+            // Find the corresponding specialization record.
             $specialization = Specialization::find($id);
         }
+
+        // Execute the query and retrieve the list of filtered students.
+        $students = $students->get();
+
+        // Fetch all grade levels and specializations from their respective tables.
         $gradeLevels = GradeLevel::all();
         $specializations = Specialization::all();
-        return view('SMS.backend.pages.students.index', compact('students', 'gradeLevels',  'gradeLevel', 'specializations',  'specialization', 'type'));
+
+        // Pass the retrieved data to the view for rendering.
+        return view('SMS.backend.pages.students.index', compact('students', 'gradeLevels', 'gradeLevel', 'specializations', 'specialization', 'type'));
     }
+
 
 
     /**

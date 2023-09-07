@@ -13,14 +13,17 @@
 
         table.table-bordered {
             border-collapse: collapse;
-            border: 1px solid black; /* Adjust border width as needed */
+            border: 1px solid black;
+            /* Adjust border width as needed */
         }
+
         table.table-bordered th,
-    table.table-bordered td {
-        border: 1px solid black; /* Adjust border width as needed */
-        padding: 8px; /* Add padding to cells for better spacing */
-    }
-       
+        table.table-bordered td {
+            border: 1px solid black;
+            /* Adjust border width as needed */
+            padding: 8px;
+            /* Add padding to cells for better spacing */
+        }
     </style>
 @endsection
 @section('contents')
@@ -35,7 +38,8 @@
                         <div class="d-flex align-items-center">
                             <a href="{{ route('admin.student.edit', ['id' => $student->id]) }}"
                                 class="btn btn-outline-primary me-1"><i class="fa-solid fa-chevron-left"></i> Back</a>
-                            <button class="btn btn-primary" onclick="generatePDF()"><i class="fa-solid fa-file-arrow-down"></i> Download</button>
+                            <button class="btn btn-primary" onclick="generatePDF()"><i
+                                    class="fa-solid fa-file-arrow-down"></i> Download</button>
                         </div>
 
                     </div>
@@ -95,7 +99,20 @@
 
                             </table>
                             <!-- End Table with stripped rows -->
+                            <div class="d-flex justify-content-between mt-5 pt-5">
+                                <div>
+                                    <h5 class="pt-3 text-center" style="border-top: 2px #000 solid ">Signature over printed
+                                        name (Registrar)</h5>
+                                </div>
+                                <div>
+                                    <h5 class="pt-3 text-center" style="border-top: 2px #000 solid ">Signature over printed
+                                        name (Student)</h5>
+                                </div>
+                            </div>
                         </div>
+
+                    </div>
+                    <div class="card-footer border-0">
 
                     </div>
                 </div>
@@ -105,29 +122,29 @@
     </section>
 @endsection
 @section('scripts')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"
-integrity="sha512-YcsIPGdhPK4P/uRW6/sruonlYj+Q7UHWeKfTAkBW+g83NKM+jMJFJ4iAPfSnVp7BKD4dKMHmVSvICUbE/V1sSw=="
-crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script type="text/javascript">
-function generatePDF() {
-var element = document.getElementById('wrapper');
-var opt = {
-    margin: 0,
-    filename: '{{ $student->getFullName() }}.pdf',
-    image: {
-        type: 'jpeg',
-        quality: 0.98
-    },
-    html2canvas: {
-        scale: 2
-    },
-    jsPDF: {
-        unit: 'in',
-        format: 'a4',
-        orientation: 'portrait'
-    }
-};
-html2pdf().set(opt).from(element).save();
-};
-</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"
+        integrity="sha512-YcsIPGdhPK4P/uRW6/sruonlYj+Q7UHWeKfTAkBW+g83NKM+jMJFJ4iAPfSnVp7BKD4dKMHmVSvICUbE/V1sSw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script type="text/javascript">
+        function generatePDF() {
+            var element = document.getElementById('wrapper');
+            var opt = {
+                margin: 0,
+                filename: '{{ $student->getFullName() }}.pdf',
+                image: {
+                    type: 'jpeg',
+                    quality: 0.98
+                },
+                html2canvas: {
+                    scale: 2
+                },
+                jsPDF: {
+                    unit: 'in',
+                    format: 'a4',
+                    orientation: 'portrait'
+                }
+            };
+            html2pdf().set(opt).from(element).save();
+        };
+    </script>
 @endsection

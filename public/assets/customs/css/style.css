@@ -100,6 +100,21 @@ h6 {
     opacity: 1;
 }
 
+.text-info{
+    color: #3699FF !important;
+}
+.btn-outline-info{
+    border-color: #3699FF !important;
+    color: #3699FF !important;
+}
+.btn-outline-info:hover{
+    background-color: #3699FF !important;
+    border-color: #3699FF !important;
+    color: #fff !important;
+}
+.text-dark-50{
+    color: #7E8299 !important
+}
 /*--------------------------------------------------------------
 # Override some default Bootstrap stylings
 --------------------------------------------------------------*/

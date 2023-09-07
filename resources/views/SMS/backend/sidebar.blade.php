@@ -22,11 +22,27 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link {{ Route::is('admin.academic.subject.index') ? 'active' : '' }}"
-                    href="{{ route('admin.academic.subject.index') }}">
+                <a class="nav-link collapsed {{ Route::is('admin.subject.*') ? 'active' : '' }}" data-bs-target="#academics"
+                    data-bs-toggle="collapse" href="#">
                     <i class="fa-solid icon-yellow fa-book-open"></i>
                     <span>Subjects</span>
+                    <i class="bi bi-chevron-down ms-auto"></i>
                 </a>
+                <ul id="academics" class="nav-content collapse p-2" data-bs-parent="#sidebar-nav">
+                    <li class="{{ Route::is('admin.academic.subject.index') ? 'collapse-active' : '' }}">
+                        <a href="{{ route('admin.academic.subject.index', ['gradeLevelId' => 1]) }}">
+                            <i class="fa-solid fa-minus"></i>
+                            <span>Grade 11</span>
+                        </a>
+                    </li>
+                    <li class="{{ Route::is('admin.academic.subject.index') ? 'collapse-active' : '' }}">
+                        <a href="{{ route('admin.academic.subject.index', ['gradeLevelId' => 2]) }}">
+                            <i class="fa-solid fa-minus"></i>
+                            <span>Grade 12</span>
+                        </a>
+                    </li>
+                </ul>
+
             </li>
             <!-- End Dashboard Nav -->
             <li class="nav-item">
@@ -53,13 +69,13 @@
                         <span>Teachers</span>
                     </a>
                 </li>
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a class="nav-link {{ Route::is('admin.maintenance.index') ? 'active' : '' }}"
                         href="{{ route('admin.maintenance.index') }}">
                         <i class="fa-solid icon-yellow fa-gears"></i>
                         <span>Maintenance</span>
                     </a>
-                </li>
+                </li> --}}
                 <li class="nav-item">
                     <a class="nav-link {{ Route::is('admin.user.index') ? 'active' : '' }}"
                         href="{{ route('admin.user.index') }}">

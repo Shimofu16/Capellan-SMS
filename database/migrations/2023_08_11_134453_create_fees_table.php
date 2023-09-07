@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('fees', function (Blueprint $table) {
+        Schema::connection('mysql')->create('fees', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('fee');
             $table->boolean('is_active')->default(0);

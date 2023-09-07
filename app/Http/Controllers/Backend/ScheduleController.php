@@ -6,8 +6,11 @@ use App\Http\Controllers\Backend\General\GenerateUserSession;
 use App\Http\Controllers\Controller;
 use App\Models\EMS\ActiveSyandSem;
 use App\Models\EMS\SchoolYear;
+use App\Models\EMS\Section;
+use App\Models\EMS\Semester;
 use App\Models\EMS\Specialization;
 use App\Models\Schedule;
+use App\Models\Subject;
 use App\Models\Teacher;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -28,8 +31,15 @@ class ScheduleController extends Controller
     {
         $schedules = Schedule::all();
         $teachers = Teacher::all();
+        $sections = Section::all();
+        $subjects = Subject::all();
+        $semesters = Semester::all();
+
         $specializations = Specialization::all();
-        return view('SMS.backend.pages.schedule.index', compact('schedules', 'teachers', 'specializations'));
+        return view(
+            'SMS.backend.pages.schedule.index',
+            compact('schedules', 'teachers', 'specializations', 'sections', 'subjects', 'semesters')
+        );
     }
 
     /**
@@ -123,13 +133,9 @@ class ScheduleController extends Controller
     {
         try {
             $schedule = Schedule::findOrFail($id);
-            // check if image exists
-            if (Storage::exists($schedule->image_url)) {
-                // delete image
-                Storage::delete($schedule->image_url);
-            }
+            $title = $schedule->subject->name;
             $schedule->delete();
-            GenerateUserSession::GenerateSession('Schedule Management', 'Deleted Schedule ' . $schedule->name, auth()->user());
+            GenerateUserSession::GenerateSession('Schedule Management', 'Deleted Schedule on ' .$title, auth()->user());
             return redirect()->back()->with('successToast', 'Schedule deleted successfully');
         } catch (\Throwable $th) {
             return redirect()->back()->with('errorAlert', $th->getMessage());

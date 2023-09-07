@@ -100,7 +100,8 @@
                             </div>
 
 
-                        </div><!-- End Bordered Tabs -->
+                        </div>
+                        <!-- End Bordered Tabs -->
 
                     </div>
 

@@ -16,19 +16,29 @@ class SubjectController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index($specialization_id = null)
+    public function index($gradeLevelId, $specialization_id = null)
     {
 
         $specialization = null;
         $specializations = Specialization::with('strand', 'subjects')->get();
-        $subjects = Subject::with('semester', 'specialization', 'gradeLevel')->get();
+        $firstSemSubjects = Subject::query()
+        ->with('semester', 'specialization', 'gradeLevel')
+        ->where('grade_level_id', $gradeLevelId)
+        ->where('semester_id', 1);
+        $secondSemSubjects = Subject::query()
+        ->with('semester', 'specialization', 'gradeLevel')
+        ->where('grade_level_id', $gradeLevelId)
+        ->where('semester_id', 2);
         if ($specialization_id) {
             $specialization = Specialization::with('strand', 'subjects')->find($specialization_id);
-            $subjects = $specialization->subjects;
+            $firstSemSubjects->where('specialization_id', $specialization_id);
+            $secondSemSubjects->where('specialization_id', $specialization_id);
         }
+        $firstSemSubjects = $firstSemSubjects->get();
+        $secondSemSubjects = $secondSemSubjects->get();
         $semesters = Semester::all();
         $gradeLevels = GradeLevel::all();
-        return view('SMS.backend.pages.academics.subject.index', compact('specializations', 'specialization', 'subjects', 'semesters', 'gradeLevels', 'specialization_id'));
+        return view('SMS.backend.pages.academics.subject.index', compact('specializations', 'specialization', 'firstSemSubjects', 'secondSemSubjects', 'semesters' ,'gradeLevelId','gradeLevels', 'specialization_id'));
     }
 
     /**

@@ -27,43 +27,35 @@
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
-                                    <th scope="col">Name</th>
+                                    <th scope="col">Subject</th>
                                     <th scope="col">Teacher</th>
                                     <th scope="col">Specialization</th>
-                                    <th scope="col">Image</th>
+                                    <th scope="col">Schedule</th>
+                                    <th scope="col">Semester</th>
                                     <th scope="col" class="text-center">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($schedules as $schedule)
                                     <tr>
-                                        <td>{{ $loop->index + 1 }}</td>
-                                        <td>{{ $schedule->name }}</td>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $schedule->subject->name }}</td>
                                         <td>{{ $schedule->teacher->name }}</td>
-                                        <td>{{ $schedule->specialization->specialization }}</td>
+                                        <td>{{ $schedule->subject->specialization->specialization }}</td>
+                                        <td>
+                                            <span>{{ $schedule->days }}</span><br>
+                                            <span>At {{ date('h:i A', strtotime($schedule->start_time)) }} -
+                                                {{ date('h:i A', strtotime($schedule->end_time)) }}</span>
+                                        </td>
+                                        <td>{{ $schedule->subject->semester->sem }}</td>
 
                                         <td>
-                                            <button class="btn btn-outline-info btn-sm" type="button"
-                                                data-bs-toggle="modal" data-bs-target="#view{{ $schedule->id }}">
-                                                <i class="ri-eye-line"></i>
-                                            </button>
-                                            @include('SMS.backend.pages.schedule.modal._view')
+                                            <button class="btn btn-outline-danger btn-sm" data-bs-toggle="modal"
+                                            data-bs-target="#delete{{ $schedule->id }}">
+                                            <i class="ri-delete-bin-2-line"></i>
+                                        </button>
+                                        @include('SMS.backend.pages.schedule.modal._delete')
                                         </td>
-                                        <td class="">
-                                            <div class="d-flex justify-content-center">
-                                                <button  type="button" class="btn btn-outline-primary btn-sm me-1"
-                                                    data-bs-toggle="modal" data-bs-target="#edit{{ $schedule->id }}">
-                                                    <i class="ri-pencil-line"></i>
-                                                </button>
-                                                <button type="button" class="btn btn-outline-danger btn-sm"
-                                                    data-bs-toggle="modal" data-bs-target="#delete{{ $schedule->id }}">
-                                                    <i class="ri-delete-bin-2-line"></i>
-                                                </button>
-                                            </div>
-                                            @include('SMS.backend.pages.schedule.modal._edit')
-                                            @include('SMS.backend.pages.schedule.modal._delete')
-                                        </td>
-
                                     </tr>
                                 @endforeach
                             </tbody>

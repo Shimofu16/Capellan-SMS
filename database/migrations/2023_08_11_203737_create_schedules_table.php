@@ -11,15 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('schedules', function (Blueprint $table) {
+        Schema::connection('mysql')->create('schedules', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('image_url');
             $table->unsignedBigInteger('teacher_id');
+            $table->unsignedBigInteger('subject_id');
+            $table->unsignedBigInteger('section_id');
+            $table->string('days');
+            $table->time('start_time');
+            $table->time('end_time');
             $table->foreign('teacher_id')->references('id')->on('teachers');
-            $table->unsignedBigInteger('specialization_id');
-            $table->unsignedBigInteger('sy_id');
-
+            $table->foreign('subject_id')->references('id')->on('subjects');
             $table->timestamps();
         });
     }
